@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   return (
     <>
-    <div>Blackticles</div>
+    <div><p className='text-red-900 text-2xl font-semibold'>Blackticles</p></div>
     </>
   )
 }
