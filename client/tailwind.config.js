@@ -10,7 +10,9 @@ export default {
         sourceSerif : ["Source Serif 4","serif"],
         playFair : ["Playfair Display", "serif"],
         grot : ["Bricolage Grotesque", "sans-serif"]
-      },
+      },colors:{
+        accent:"#9CFF1E"
+      }
     },
   },
   plugins: [],
