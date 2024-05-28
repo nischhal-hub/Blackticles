@@ -6,9 +6,11 @@ import React from 'react'
 const SharedLayout = () => {
     return (
         <>
+        <div className="overflow-hidden">
             <Navbar />
             <Outlet />
             <Footer />
+        </div>
         </>
     )
 }
