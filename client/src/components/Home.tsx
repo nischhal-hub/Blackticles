@@ -12,7 +12,7 @@ const Home = () => {
             <img src={thumbnail} alt="picture" className='w-full' />
           </div>
           <h1 className='font-playFair text-4xl font-bold text-center mx-4 mt-2'>A few words about this blog platform, Ghost, and how this site was made.</h1>
-          <p className='font-sourceSerif font-light text-lg text-center mx-6 mt-2'>Why Ghost (& Figma) instead of Medium, WordPress or other options?</p>
+          <p className='font-sourceSerif font-light text-lg text-center mx-6 mt-4'>Why Ghost (& Figma) instead of Medium, WordPress or other options?</p>
         </div>
         {/* all articles */}
         <div className='mt-10 w-full mx-auto'>
