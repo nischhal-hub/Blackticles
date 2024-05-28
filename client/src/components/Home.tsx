@@ -19,8 +19,6 @@ const Home = () => {
           <h3 className='text-center font-playFair text-3xl font-bold'>All articles</h3>
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2'>
             {Array.from({length:5}).map((_,i)=>(<Card key={i}/>))}
-          <Card />
-            <Card />
           </div>
         </div>
       </div>
