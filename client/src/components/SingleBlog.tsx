@@ -19,7 +19,7 @@ const SingleBlog = () => {
         <div className='w-[90%] md:w-[60%] mt-6 border-t-2 border-black mx-auto'>
 
           {/* profile */}
-          <div className='md:flex md:justify-between'>
+          <div className='md:flex md:justify-between '>
             <div className='flex items-center mt-6'>
               <div className='w-16 h-16 rounded-full overflow-hidden'>
                 <img src={imgURL} alt="profile" className='object-cover w-full h-full' />
@@ -69,7 +69,7 @@ const SingleBlog = () => {
             {Array.from({ length: 3 }).map((_, i) => (<p key={i} className='text-xl px-2 py-1 hover:underline border-[1px] border-solid border-slate-300 rounded-md mx-2 hover:bg-accent cursor-pointer transition-all'>React</p>))}
           </div>
 
-          <div className='flex items-center mt-6'>
+          <div className='flex items-center mt-6 border-t-2 border-slate-400 border-dotted pt-4'>
             <div className='w-16 h-16 rounded-full overflow-hidden'>
               <img src={imgURL} alt="profile" className='object-cover w-full h-full' />
             </div>
@@ -81,7 +81,7 @@ const SingleBlog = () => {
 
         {/* Read more */}
         <div className='w-[95%] md:w-[70%] mt-6 border-t-[1px] border-black mx-auto'>
-          <h3 className='text-center font-playFair text-3xl font-bold'>What to read next</h3>
+          <h3 className='text-center font-playFair text-3xl font-bold mt-4'>What to read next</h3>
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3'>
             {Array.from({ length: 5 }).map((_, i) => (<Card key={i} />))}
           </div>
