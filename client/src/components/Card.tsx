@@ -4,7 +4,7 @@ import thumbnail from '../assets/Rectangle 12.png'
 const Card = () => {
     return (
         <>
-            <div className='w-[90%] mx-auto mt-6' >
+            <div className='w-[90%] mx-auto mt-6 hover:shadow-lg hover:-translate-y-1 transition-transform' >
                 <div className='w-full h-52 border-2 overflow-hidden'>
                     <img src={thumbnail} alt="blog picutre" className='w-full h-full object-cover' />
                 </div>
