@@ -4,10 +4,15 @@ import descImg from '../assets/Rectangle 8.png'
 import { FaFacebook, FaReddit } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import Card from './Card';
+import { motion } from 'framer-motion';
 const SingleBlog = () => {
   const imgURL = 'https://i.ytimg.com/vi/Aj8DdoGJ9Fk/hqdefault.jpg'
   return (
     <>
+     <motion.div
+        initial={{opacity:0}}
+        animate={{ opacity: 1 }}
+        transition={{duration:.5}} >
       <div className="min-h-screen mt-10">
         <div className='w-[90%] md:w-[60%] mx-auto'>
           <h1 className="font-playFair text-3xl font-bold text-center mx-4">A few words about this blog platform, Ghost, and how this site was made.</h1>
@@ -87,6 +92,7 @@ const SingleBlog = () => {
           </div>
         </div>
       </div>
+      </motion.div>
     </>
   )
 }

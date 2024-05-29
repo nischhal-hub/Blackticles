@@ -2,14 +2,12 @@ import React from 'react'
 import thumbnail from '../assets/image 2.jpg'
 import Card from './Card'
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
     <>
-      <motion.div
-        initial={{opacity:0}}
-        animate={{ opacity: 1 }}
-        transition={{duration:.5}} >
+     
         {/* Hero blog */}
         <div className='w-full mt-10 md:w-[60%] mx-auto'>
           <div className=' border-b-2 border-solid border-slate-900 border-spacing-7 pb-8'>
@@ -23,11 +21,11 @@ const Home = () => {
           <div className='mt-10 w-full mx-auto'>
             <h3 className='text-center font-playFair text-3xl font-bold'>All articles</h3>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2'>
-              {Array.from({ length: 5 }).map((_, i) => (<Card key={i} />))}
+              {Array.from({ length: 5 }).map((_, i) => (<Link key={i} to='/blog' ><Card /></Link>))}
             </div>
           </div>
         </div>
-      </motion.div>
+     
     </>
   )
 }
