@@ -5,6 +5,7 @@ import SharedLayout from './components/SharedLayout'
 import Home from './components/Home'
 import SingleBlog from './components/SingleBlog'
 import Postblog from './components/Postblog'
+import Search from './components/Search'
 function App() {
   return (
     <>
@@ -13,6 +14,8 @@ function App() {
         <Route path='/' element={<Home />}/>
         <Route path='/blog' element={<SingleBlog />}/>
         <Route path='/create' element={<Postblog/>}/>
+        <Route path='/search/:query' element={<Search />}/>
+        <Route path='/search' element={<Search />}/>
       </Route>
     </Routes>
     </>

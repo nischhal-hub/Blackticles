@@ -70,8 +70,8 @@ const Postblog = () => {
                                 <div className='w-full lg:w-[60%] relative'>
                                     <BiSolidImageAdd className='absolute top-0 left-0 bottom-0 right-0 m-auto w-full text-2xl text-textSecondary-200' />
                                     
-                                    <label htmlFor="file" className='bg-accent absolute top-4 right-6 font-sourceSerif font-normal text-xl rounded-[50px] px-2 py-1 cursor-pointer z-20'><FaCloudUploadAlt /></label>
-                                    <label htmlFor="file" className='bg-accent absolute top-5 right-7 font-sourceSerif font-normal text-xs rounded-[50px] px-2 py-1 cursor-pointer animate-ping z-10'><FaCloudUploadAlt /></label>
+                                    <label htmlFor="file" className='bg-accent absolute top-4 right-6 font-normal text-xl rounded-[50px] px-2 py-1 cursor-pointer z-20'><FaCloudUploadAlt /></label>
+                                    <label htmlFor="file" className='bg-accent absolute top-5 right-7 font-normal text-xs rounded-[50px] px-2 py-1 cursor-pointer animate-ping z-10'><FaCloudUploadAlt /></label>
                                     <div className='w-full  mt-4 bg-slate-100 rounded-md overflow-hidden flex items-center justify-center aspect-video'>
                                         <img src={image} className='object-contain' />
                                         <div className='w-[0.1px] opacity-0 overflow-hidden'>
