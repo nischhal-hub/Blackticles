@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react'
 import logo from '../assets/Blackticles_logo.png'
 import { RxHamburgerMenu } from "react-icons/rx";
 import { CiSearch } from "react-icons/ci";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { IoMdClose } from "react-icons/io";
 
@@ -56,10 +56,18 @@ const Navbar = () => {
           variants={variantSidebar2}
           transition={{ duration: .2 }}
           className='fixed right-0 top-0 w-[50%] h-screen bg-[#fafafa] z-30'>
-          <ul className='font-playFair space-x-8 text-lg font-medium mt-16 ml-6'>
-            <NavLink to='/' onClick={() => setIsSidebarOpen(v => !v)}><li>Blog</li></NavLink>
-            <NavLink to='/create' onClick={() => setIsSidebarOpen(v => !v)}><li>Create</li></NavLink>
-            <NavLink to='/' onClick={() => setIsSidebarOpen(v => !v)}><li>About</li></NavLink>
+          <ul className='font-playFair space-y-8 text-lg font-medium mt-16 ml-6'>
+            <p className='relative'><NavLink className={({ isActive }) =>
+              isActive ? "anchorline2" : "anchorline"
+            } to='/' onClick={() => setIsSidebarOpen(v => !v)}><li>Blog</li></NavLink></p>
+
+            <p className='relative'><NavLink className={({ isActive }) =>
+              isActive ? "anchorline2" : "anchorline"
+            } to='/create' onClick={() => setIsSidebarOpen(v => !v)}><li>Create</li></NavLink></p>
+            
+            <p className='relative'><NavLink className={({ isActive }) =>
+              isActive ? "anchorline2" : "anchorline"
+            } to='/about' onClick={() => setIsSidebarOpen(v => !v)}><li>About</li></NavLink></p>
           </ul>
         </motion.div>
         {/* mobile search */}
@@ -88,9 +96,15 @@ const Navbar = () => {
             <input type="text" value={inputTerm} onChange={handleChange} className='bg-slate-100 border-[1px] border-solid border-slate-200 font-grot pl-6 w-64 px-2 py-1 focus:outline-slate-300' placeholder='Search' onKeyDown={handleKeyPress} />
           </div>
           <ul className='flex font-playFair space-x-8 text-lg font-medium'>
-            <NavLink to='/'><li>Blog</li></NavLink>
-            <NavLink to='/create'><li>Create</li></NavLink>
-            <NavLink to='/'><li>About</li></NavLink>
+            <p className='relative'><NavLink className={({ isActive }) =>
+              isActive ? "anchorline2" : "anchorline"
+            } to='/'><li>Blog</li></NavLink></p>
+            <p className='relative'><NavLink className={({ isActive }) =>
+              isActive ? "anchorline2" : "anchorline"
+            } to='/create'><li>Create</li></NavLink></p>
+            <p className='relative'><NavLink className={({ isActive }) =>
+              isActive ? "anchorline2" : "anchorline"
+            } to='/about'><li>About</li></NavLink></p>
           </ul>
         </div>
       </nav>

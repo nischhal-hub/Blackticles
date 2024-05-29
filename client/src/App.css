@@ -1,5 +1,31 @@
 
 #root {
-  
   max-width: 1280px;
+}
+
+.anchorline::after{
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 12px;
+  height: 4px;
+  background-color: #9CFF1E;
+  transition: width .2s ease-in-out;
+  border-radius: 10px;
+}
+.anchorline2::after{
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 30px;
+  height: 4px;
+  background-color: #9CFF1E;
+  transition: width .2s ease-in-out;
+  border-radius: 10px;
+}
+
+.anchorline:hover::after{
+  width: 30px;
 }
