@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily:{
-        sourceSerif : ["Source Serif 4","serif"],
         playFair : ["Playfair Display", "serif"],
+        source:["Source Serif 4", "serif"],
         grot : ["Bricolage Grotesque", "sans-serif"]
       },colors:{
         accent:"#9CFF1E"
