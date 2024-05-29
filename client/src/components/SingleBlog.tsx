@@ -30,8 +30,8 @@ const SingleBlog = () => {
                 <img src={imgURL} alt="profile" className='object-cover w-full h-full' />
               </div>
               <div className='ml-4'>
-                <p className='font-sourceSerif font-bold text-xl'>Magne Budha</p>
-                <p className='font-sourceSerif font-normal '>May 28,2024: 5 min read</p>
+                <p className='font-grot font-bold text-xl'>Magne Budha</p>
+                <p className='font-grot font-normal '>May 28,2024: 5 min read</p>
               </div>
             </div>
             {/* social links */}
