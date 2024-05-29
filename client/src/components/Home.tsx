@@ -1,7 +1,6 @@
 import React from 'react'
 import thumbnail from '../assets/image 2.jpg'
 import Card from './Card'
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const Home = () => {

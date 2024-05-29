@@ -45,28 +45,28 @@ const Postblog = () => {
                                 <p className='text-textLight text-2xl font-semibold font-playFair'>Blog title.</p>
                                 <div className='pricing-input flex flex-col mt-4'>
                                     <div className='flex flex-col w-full'>
-                                        <p className='font-sourceSerif font-normal text-sm'>Title</p>
+                                        <p className='font-grot font-normal text-sm'>Title</p>
                                         <input type="text" {...register('title',{
                                             required:"Enter the title.",
                                             
                                         }
-                                        )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                                        )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
                                         {errors.title && <span className='text-sm text-error font-sourceSerif mt-2'>{errors.title.message}</span>}
                                     </div>
                                     <div className='flex flex-col mt-3 w-full'>
-                                        <p className='font-workSans font-normal text-sm text-textSecondary-100 my-1'>Overview</p>
+                                        <p className='font-grot font-normal text-sm text-textSecondary-100 my-1'>Overview</p>
                                         <input type="text" {...register('overview',{
                                             required:"Enter the overview."}
-                                        )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm' placeholder='Short description for your blog.' />
-                                        {errors.overview && (<span className='text-sm text-error font-sourceSerif mt-2'>{errors.overview.message}</span>)}
+                                        )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm' placeholder='Short description for your blog.' />
+                                        {errors.overview && (<span className='text-sm text-error font-grot mt-2'>{errors.overview.message}</span>)}
                                    
                                     </div>
                                 </div>
                             </div>
                             <div className="upload mt-6">
                                 <p className='text-textLight text-2xl font-semibold font-playFair'>Upload your file</p>
-                                <p className='font-workSans font-normal text-xs text-textLight mt-3'>Upload thumbnail.</p>
-                                <p className='font-workSans font-normal text-xs text-textLight'>PNG,GIF,WEBP Max=30MB.</p>
+                                <p className='font-grot font-normal text-xs text-textLight mt-3'>Upload thumbnail.</p>
+                                <p className='font-grot font-normal text-xs text-textLight'>PNG,GIF,WEBP Max=30MB.</p>
                                 <div className='w-full lg:w-[60%] relative'>
                                     <BiSolidImageAdd className='absolute top-0 left-0 bottom-0 right-0 m-auto w-full text-2xl text-textSecondary-200' />
                                     
@@ -88,17 +88,17 @@ const Postblog = () => {
                                 <p className='text-textLight text-2xl font-semibold font-playFair'>Blog content.</p>
 
                                 <div className='flex flex-col w-full'>
-                                    <p className='font-sourceSerif font-normal text-sm text-textSecondary-100 my-1'>Description</p>
+                                    <p className='font-grot font-normal text-sm text-textSecondary-100 my-1'>Description</p>
                                     <input type="text" {...register('description',{
                                             required:"Enter the description.",
                                             
                                         }
-                                        )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-urbanist font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                                        )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
                                 </div>
                             </div>
                             <div className='flex justify-center items-center'>
 
-                            <button className='px-6 py-2 bg-accent rounded-3xl font-sourceSerif mt-4 font-bold text-lg'>Submit</button>
+                            <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-4 font-bold text-lg'>Submit</button>
                             </div>
                         </form>
                     </div>
