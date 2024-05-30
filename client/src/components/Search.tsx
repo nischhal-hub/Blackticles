@@ -15,7 +15,7 @@ const Search = () => {
     return (
         <>
             <div className='min-h-screen'>
-            <div className='w-[90%] md:w-[60%] mx-auto'>
+            <div className='w-[90%] md:w-[60%] mx-auto mt-4'>
                     <Back url={'/'}/>
                 </div>
                 <div className='md:hidden relative sm:ml-6 w-[90%] mt-4 mx-auto'>
