@@ -75,7 +75,7 @@ const Home = () => {
 
           </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2'>
-            {Array.from({ length: 5 }).map((_, i) => (<Link key={i} to='/blog' ><Card /></Link>))}
+            {Array.from({ length: 5 }).map((_, i) => (<Link key={i} to='/blog' ><Card showTransition={true}/></Link>))}
           </div>
         </div>
       </div >

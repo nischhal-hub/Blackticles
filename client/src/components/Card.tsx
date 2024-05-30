@@ -1,10 +1,20 @@
 import React from 'react'
 import thumbnail from '../assets/Rectangle 12.png'
+import { cn } from '../utils/cn';
 
-const Card = () => {
+type TProp = {
+    showTransition:boolean;
+}
+const Card = (prop:TProp) => {
     return (
         <>
-            <div className='w-[90%] mx-auto mt-6 hover:shadow-lg hover:-translate-y-1 transition-transform' >
+            <div className={cn(
+                    'w-[90%]', 
+                    'mx-auto', 
+                    'mt-6', 
+                    'hover:shadow-lg', 
+                    !prop.showTransition?'':'hover:-translate-y-1 transition-transform'
+            )} >
                 <div className='w-full h-52 overflow-hidden'>
                     <img src={thumbnail} alt="blog picutre" className='w-full h-full object-cover' />
                 </div>

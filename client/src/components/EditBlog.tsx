@@ -14,7 +14,7 @@ type TFormFields ={
     description:string;
 }
 
-const Postblog = () => {
+const Editblog = () => {
     const {register, handleSubmit,formState:{errors}} = useForm<TFormFields>()
     const [image, setImage] = useState<string>("")
     const onSubmit : SubmitHandler<TFormFields> = (data)=>{
@@ -102,7 +102,7 @@ const Postblog = () => {
                             </div>
                             <div className='flex justify-center items-center'>
 
-                            <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg'>Submit</button>
+                            <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg'>Edit</button>
                             </div>
                         </form>
                     </div>
@@ -112,4 +112,4 @@ const Postblog = () => {
     )
 }
 
-export default Postblog
+export default Editblog
