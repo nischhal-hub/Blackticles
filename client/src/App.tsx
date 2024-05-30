@@ -7,6 +7,7 @@ import SingleBlog from './components/SingleBlog'
 import Postblog from './components/Postblog'
 import Search from './components/Search'
 import Manage from './components/Manage'
+import Editblog from './components/EditBlog'
 function App() {
   return (
     <>
@@ -18,6 +19,7 @@ function App() {
         <Route path='/search/:query' element={<Search />}/>
         <Route path='/search' element={<Search />}/>
         <Route path='/manage' element={<Manage />}/>
+        <Route path='/edit' element={<Editblog />}/>
       </Route>
     </Routes>
     </>
