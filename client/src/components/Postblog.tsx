@@ -98,7 +98,7 @@ const Postblog = () => {
                             </div>
                             <div className='flex justify-center items-center'>
 
-                            <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-4 font-bold text-lg'>Submit</button>
+                            <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg'>Submit</button>
                             </div>
                         </form>
                     </div>
