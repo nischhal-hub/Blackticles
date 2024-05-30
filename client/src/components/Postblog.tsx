@@ -4,6 +4,7 @@ import arrow2 from '../assets/Black Green Futuristic Technology Company Logo (2)
 import { BiSolidImageAdd } from 'react-icons/bi'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { FaCloudUploadAlt } from "react-icons/fa";
+import Back from './Back'
 
 
 type TFormFields ={
@@ -38,13 +39,15 @@ const Postblog = () => {
                         <p className='w-[130%] tracking-widest text-xl'>{Array.from({ length: 20 }).map((_, i) => (<span key={i} className='font-light'> Create <span className='font-bold'> Awesometicles </span></span>))}</p>
                     </div>
                 </div>
-                
+
                 <div className='w-[95%] md:w-[40%] mx-auto mt-6'>
-                <div className="form w-full mt-6">
+                <Back url={'/'}/>
+                <div className="form w-full mt-4">
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className="pricing">
+                            <div >
+                                
                                 <p className='text-textLight text-2xl font-semibold font-playFair'>Blog title.</p>
-                                <div className='pricing-input flex flex-col mt-4'>
+                                <div className='flex flex-col mt-4'>
                                     <div className='flex flex-col w-full'>
                                         <p className='font-grot font-normal text-sm'>Title</p>
                                         <input type="text" {...register('title',{
