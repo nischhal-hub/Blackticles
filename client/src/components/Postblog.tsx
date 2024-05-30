@@ -38,6 +38,7 @@ const Postblog = () => {
                         <p className='w-[130%] tracking-widest text-xl'>{Array.from({ length: 20 }).map((_, i) => (<span key={i} className='font-light'> Create <span className='font-bold'> Awesometicles </span></span>))}</p>
                     </div>
                 </div>
+                
                 <div className='w-[95%] md:w-[40%] mx-auto mt-6'>
                 <div className="form w-full mt-6">
                         <form onSubmit={handleSubmit(onSubmit)}>
@@ -98,7 +99,7 @@ const Postblog = () => {
                             </div>
                             <div className='flex justify-center items-center'>
 
-                            <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-4 font-bold text-lg'>Submit</button>
+                            <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg'>Submit</button>
                             </div>
                         </form>
                     </div>

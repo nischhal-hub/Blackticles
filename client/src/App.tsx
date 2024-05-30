@@ -6,6 +6,7 @@ import Home from './components/Home'
 import SingleBlog from './components/SingleBlog'
 import Postblog from './components/Postblog'
 import Search from './components/Search'
+import Manage from './components/Manage'
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
         <Route path='/create' element={<Postblog/>}/>
         <Route path='/search/:query' element={<Search />}/>
         <Route path='/search' element={<Search />}/>
+        <Route path='/manage' element={<Manage />}/>
       </Route>
     </Routes>
     </>

@@ -5,7 +5,7 @@ const Card = () => {
     return (
         <>
             <div className='w-[90%] mx-auto mt-6 hover:shadow-lg hover:-translate-y-1 transition-transform' >
-                <div className='w-full h-52 border-2 overflow-hidden'>
+                <div className='w-full h-52 overflow-hidden'>
                     <img src={thumbnail} alt="blog picutre" className='w-full h-full object-cover' />
                 </div>
                 <p className='text-center mx-6 font-grot text-lg font-normal'>Granny gives everyone the finger, and other tips from OFFF Barcelona.</p>

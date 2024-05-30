@@ -6,7 +6,7 @@ const Footer = () => {
     <>
       <div className='h-96 border-2 border-black mt-10 bg-black'>
         <div className='w-full text-white text-nowrap flex justify-center font-sourceSerif'>
-          <p className='w-[130%] tracking-widest'>{Array.from({ length: 20 }).map((_, i) => (<span key={i} className='font-light'> Blacktech Co. <span className='font-bold'> Blackticles </span></span>))}</p>
+          <p className='w-[130%] tracking-widest font-grot'>{Array.from({ length: 20 }).map((_, i) => (<span key={i} className='font-light'> Blacktech Co. <span className='font-bold'> Blackticles </span></span>))}</p>
         </div>
         <div className='w-[80%] sm:w-[50%] mx-auto mt-8'>
           <div className='flex w-[60%] mx-auto'>
