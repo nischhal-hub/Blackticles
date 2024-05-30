@@ -2,7 +2,8 @@
 import { IoIosCreate } from "react-icons/io";
 import { FaHome } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
-export const links = [
+import { TLinks } from "./type";
+export const links:TLinks[] = [
     {
         label: "Home",
         icon : <FaHome />,

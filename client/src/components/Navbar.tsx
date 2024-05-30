@@ -5,7 +5,8 @@ import { CiSearch } from "react-icons/ci";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { IoMdClose } from "react-icons/io";
-import {links} from '../navlinks';
+import { links } from '../navlinks';
+import { TLinks } from '../type';
 
 const Navbar = () => {
   const [inputTerm, setInputTerm] = useState("")
@@ -27,7 +28,7 @@ const Navbar = () => {
     open: { opacity: 1, x: 0 },
     closed: { opacity: 0, x: "100%" }
   }
-  
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputTerm(e.target.value);
   }
@@ -41,7 +42,7 @@ const Navbar = () => {
     }
   }
 
-  
+
   return (
     <>
       <nav className='flex justify-between items-center p-2 border-solid border-b-2 mx-2'>
@@ -63,18 +64,10 @@ const Navbar = () => {
           transition={{ duration: .2 }}
           className='fixed right-0 top-0 w-[50%] h-screen bg-[#fafafa] z-30'>
           <ul className='font-playFair space-y-8 text-lg font-medium mt-16 ml-6'>
-            {links.map((link,i)=>(<p className='relative'><NavLink className={({ isActive }) =>
+            {links.map((link:TLinks, i:number) => (<p className='relative' key={i}><NavLink className={({ isActive }) =>
               isActive ? "anchorline2" : "anchorline"
             } to={link.url} onClick={() => setIsSidebarOpen(v => !v)}><li className='flex items-center'><span className='text-xl mr-2'>{link.icon}</span>{link.label}</li></NavLink></p>
-))}
-            
-            {/* <p className='relative'><NavLink className={({ isActive }) =>
-              isActive ? "anchorline2" : "anchorline"
-            } to='/create' onClick={() => setIsSidebarOpen(v => !v)}><li>Create</li></NavLink></p>
-            
-            <p className='relative'><NavLink className={({ isActive }) =>
-              isActive ? "anchorline2" : "anchorline"
-            } to='/about' onClick={() => setIsSidebarOpen(v => !v)}><li>About</li></NavLink></p> */}
+            ))}
           </ul>
         </motion.div>
         {/* mobile search */}
@@ -105,7 +98,7 @@ const Navbar = () => {
             <input type="text" value={inputTerm} onChange={handleChange} className='bg-slate-100 border-[1px] border-solid border-slate-200 font-grot pl-6 w-64 px-2 py-1 focus:outline-slate-300' placeholder='Search' onKeyDown={handleKeyPress} />
           </div>
           <ul className='flex font-playFair space-x-8 text-lg font-medium'>
-            {links.map((link,i)=>(<p className='relative'><NavLink className={({ isActive }) =>
+            {links.map((link, i) => (<p key={i} className='relative'><NavLink className={({ isActive }) =>
               isActive ? "anchorline2" : "anchorline"
             } to={link.url}><li>{link.label}</li></NavLink></p>))}
           </ul>
