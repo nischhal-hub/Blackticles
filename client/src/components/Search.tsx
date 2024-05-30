@@ -30,7 +30,7 @@ const Search = () => {
                     <p className='font-grot text-lg'>Search Result:</p>
                 </div>
                 <div className='md:w-[60%] mx-auto grid grid-cols-1 md:grid-cols-2'>
-                        {Array.from({ length: 3 }).map((_, i) => (<Card key={i} />))}
+                        {Array.from({ length: 3 }).map((_, i) => (<Card showTransition={true} key={i} />))}
                     </div>
             </div>
         </>
