@@ -5,24 +5,12 @@ import { CiSearch } from "react-icons/ci";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { IoMdClose } from "react-icons/io";
+import {links} from '../navlinks';
 
 const Navbar = () => {
   const [inputTerm, setInputTerm] = useState("")
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const navigate = useNavigate()
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputTerm(e.target.value);
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (inputTerm && e.key === 'Enter') {
-      navigate(`/search/${inputTerm}`)
-      setInputTerm("")
-    } else {
-      return
-    }
-  }
-
   const variantSidebar = {
     open: { opacity: 1, x: 0 },
     closed: { opacity: 0, x: "-100%" },
@@ -39,12 +27,30 @@ const Navbar = () => {
     open: { opacity: 1, x: 0 },
     closed: { opacity: 0, x: "100%" }
   }
+  
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputTerm(e.target.value);
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (inputTerm && e.key === 'Enter') {
+      navigate(`/search/${inputTerm}`)
+      setInputTerm("")
+    } else {
+      return
+    }
+  }
+
+  
   return (
     <>
       <nav className='flex justify-between items-center p-2 border-solid border-b-2 mx-2'>
         <div className='w-56' >
           <img src={logo} alt="Blackticles Logo" className='object-contain' />
         </div>
+
+
+        {/* Sidebar */}
         <motion.div
           animate={isSidebarOpen ? "open" : "closed"}
           variants={variantSidebar}
@@ -57,17 +63,18 @@ const Navbar = () => {
           transition={{ duration: .2 }}
           className='fixed right-0 top-0 w-[50%] h-screen bg-[#fafafa] z-30'>
           <ul className='font-playFair space-y-8 text-lg font-medium mt-16 ml-6'>
-            <p className='relative'><NavLink className={({ isActive }) =>
+            {links.map((link,i)=>(<p className='relative'><NavLink className={({ isActive }) =>
               isActive ? "anchorline2" : "anchorline"
-            } to='/' onClick={() => setIsSidebarOpen(v => !v)}><li>Blog</li></NavLink></p>
-
-            <p className='relative'><NavLink className={({ isActive }) =>
+            } to={link.url} onClick={() => setIsSidebarOpen(v => !v)}><li className='flex items-center'><span className='text-xl mr-2'>{link.icon}</span>{link.label}</li></NavLink></p>
+))}
+            
+            {/* <p className='relative'><NavLink className={({ isActive }) =>
               isActive ? "anchorline2" : "anchorline"
             } to='/create' onClick={() => setIsSidebarOpen(v => !v)}><li>Create</li></NavLink></p>
             
             <p className='relative'><NavLink className={({ isActive }) =>
               isActive ? "anchorline2" : "anchorline"
-            } to='/about' onClick={() => setIsSidebarOpen(v => !v)}><li>About</li></NavLink></p>
+            } to='/about' onClick={() => setIsSidebarOpen(v => !v)}><li>About</li></NavLink></p> */}
           </ul>
         </motion.div>
         {/* mobile search */}
@@ -88,6 +95,8 @@ const Navbar = () => {
             <IoMdClose onClick={() => setIsSidebarOpen(v => !v)} className='absolute z-50 right-5 text-3xl' />
           </motion.div>
         </div>
+        {/* sidebar end */}
+
 
         {/* search and navlinks*/}
         <div className='hidden md:flex md:justify-between md:items-center mr-4 w-[75%]'>
@@ -96,15 +105,9 @@ const Navbar = () => {
             <input type="text" value={inputTerm} onChange={handleChange} className='bg-slate-100 border-[1px] border-solid border-slate-200 font-grot pl-6 w-64 px-2 py-1 focus:outline-slate-300' placeholder='Search' onKeyDown={handleKeyPress} />
           </div>
           <ul className='flex font-playFair space-x-8 text-lg font-medium'>
-            <p className='relative'><NavLink className={({ isActive }) =>
+            {links.map((link,i)=>(<p className='relative'><NavLink className={({ isActive }) =>
               isActive ? "anchorline2" : "anchorline"
-            } to='/'><li>Blog</li></NavLink></p>
-            <p className='relative'><NavLink className={({ isActive }) =>
-              isActive ? "anchorline2" : "anchorline"
-            } to='/create'><li>Create</li></NavLink></p>
-            <p className='relative'><NavLink className={({ isActive }) =>
-              isActive ? "anchorline2" : "anchorline"
-            } to='/about'><li>About</li></NavLink></p>
+            } to={link.url}><li>{link.label}</li></NavLink></p>))}
           </ul>
         </div>
       </nav>
