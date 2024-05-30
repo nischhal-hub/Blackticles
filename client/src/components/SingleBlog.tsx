@@ -5,6 +5,8 @@ import { FaFacebook, FaReddit } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import Card from './Card';
 import { motion } from 'framer-motion';
+import { SiTrueup } from 'react-icons/si';
+import { Link } from 'react-router-dom';
 const SingleBlog = () => {
   const imgURL = 'https://i.ytimg.com/vi/Aj8DdoGJ9Fk/hqdefault.jpg'
   return (
@@ -88,7 +90,7 @@ const SingleBlog = () => {
         <div className='w-[95%] md:w-[70%] mt-6 border-t-[1px] border-black mx-auto'>
           <h3 className='text-center font-playFair text-3xl font-bold mt-4'>What to read next</h3>
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3'>
-            {Array.from({ length: 5 }).map((_, i) => (<Card key={i} />))}
+            {Array.from({ length: 5 }).map((_, i) => (<Link to='/blog'><Card showTransition={true} key={i} /></Link>))}
           </div>
         </div>
       </div>

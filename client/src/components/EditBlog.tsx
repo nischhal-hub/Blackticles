@@ -41,7 +41,7 @@ const Editblog = () => {
                 </div>
 
                 <div className='w-[95%] md:w-[40%] mx-auto mt-6'>
-                <Back url={'/'}/>
+                <Back url={'/manage'}/>
                 <div className="form w-full mt-4">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div >
