@@ -47,7 +47,7 @@ const Navbar = () => {
     <>
       <nav className='flex justify-between items-center p-2 border-solid border-b-2 mx-2'>
         <div className='w-56' >
-          <img src={logo} alt="Blackticles Logo" className='object-contain' />
+          <Link to='/'><img src={logo} alt="Blackticles Logo" className='object-contain' /></Link>
         </div>
 
 
