@@ -1,17 +1,25 @@
 import React, { useRef, useState } from 'react'
 import thumbnail from '../assets/image 2.jpg'
+import aniLogo from '../assets/animatedLogo.svg'
 import Card from './Card'
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { motion } from 'framer-motion'
 import { cn } from '../utils/cn';
+import { useQuery } from '@tanstack/react-query';
+import { fetchAll } from '../api';
+
 type TDates = {
   startDate: Date;
   endDate: Date;
 }
 
 const Home = () => {
+  // const {data, isLoading} = useQuery({
+  //   queryFn: ()=>fetchAll(),
+  //   queryKey: ['blogs']
+  // })
   const { register, handleSubmit, formState: { errors } } = useForm<TDates>()
   const [showFilter, setShowFilter] = useState(false)
   const variant = {
@@ -25,6 +33,12 @@ const Home = () => {
   const onSubmit: SubmitHandler<TDates> = (data) => {
     console.log(data);
   }
+  // if(isLoading){
+  //   return
+  //   <div className='w-full mt-10 md:w-[60%] mx-auto'>
+  //     <img src={aniLogo} alt="logo" />
+  //   </div>
+  // }
   return (
     <>
 
@@ -67,12 +81,9 @@ const Home = () => {
                     {/* {errors.title && <span className='text-sm text-error font-sourceSerif mt-2'>{errors.title.message}</span>} */}
                   </div>
                 </div>
-
                 <button className='px-4 py-1 bg-accent font-grot text-sm mt-4'>Filter</button>
-
               </form>
             </motion.div>
-
           </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2'>
             {Array.from({ length: 5 }).map((_, i) => (<Link key={i} to='/blog' ><Card showTransition={true}/></Link>))}
