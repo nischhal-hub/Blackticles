@@ -36,7 +36,7 @@ const Editblog = () => {
                     <img src={arrow2} alt="arrow" className='w-24 absolute -top-16 left-10 origin-center rotate-270' />
                     {/* <h3 className='font-playFair text-3xl font-bold '>Create blog</h3> */}
                     <div className='w-full text-white text-nowrap flex justify-center font-sourceSerif'>
-                        <p className='w-[130%] tracking-widest text-xl'>{Array.from({ length: 20 }).map((_, i) => (<span key={i} className='font-light'> Create <span className='font-bold'> Awesometicles </span></span>))}</p>
+                        <p className='w-[130%] tracking-widest text-xl'>{Array.from({ length: 20 }).map((_, i) => (<span key={i} className='font-light'> Edit <span className='font-bold'> Awesometicles </span></span>))}</p>
                     </div>
                 </div>
 
