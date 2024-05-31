@@ -5,6 +5,7 @@ import { BiSolidImageAdd } from 'react-icons/bi'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Back from './Back'
+import Editor from './Editor'
 
 
 type TFormFields ={
@@ -76,7 +77,7 @@ const Editblog = () => {
                                     
                                     <label htmlFor="file" className='bg-accent absolute top-4 right-6 font-normal text-xl rounded-[50px] px-2 py-1 cursor-pointer z-20'><FaCloudUploadAlt /></label>
                                     <label htmlFor="file" className='bg-accent absolute top-5 right-7 font-normal text-xs rounded-[50px] px-2 py-1 cursor-pointer animate-ping z-10'><FaCloudUploadAlt /></label>
-                                    <div className='w-full  mt-4 bg-slate-100 rounded-md overflow-hidden flex items-center justify-center aspect-video'>
+                                    <div className='w-full  mt-4 bg-slate-100 border-slate-300 border-[1px] rounded-md overflow-hidden flex items-center justify-center aspect-video'>
                                         <img src={image} className='object-contain' />
                                         <div className='w-[0.1px] opacity-0 overflow-hidden'>
                                             <input type="file" id='file' {...register('image',{
@@ -98,6 +99,7 @@ const Editblog = () => {
                                             
                                         }
                                         )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                                        <Editor />
                                 </div>
                             </div>
                             <div className='flex justify-center items-center'>
