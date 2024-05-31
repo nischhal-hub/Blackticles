@@ -33,7 +33,7 @@ const Card = (prop: TProp) => {
                     <img src={thumbnail} alt="blog picutre" className='w-full h-full object-cover' />
                 </div>
                 <div className='h-20 overflow-hidden mb-2 relative' ref={paraRef}>
-                    {showEllipses && <p className='absolute -bottom-1 right-1 z-50 font text-2xl'>....</p>}
+                    {showEllipses && <p className='absolute -bottom-1 right-1 font text-2xl'>....</p>}
 
                     <p className='text-center mx-6 font-grot text-lg font-normal' >Granny gives everyone the finger, and other tips from OFFF Barcelona. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi, repudiandae?</p>
                 </div>

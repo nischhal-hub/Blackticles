@@ -38,7 +38,7 @@ const Home = () => {
           <p className='font-grot font-light text-lg text-center mx-6 mt-4'>Why Ghost (& Figma) instead of Medium, WordPress or other options?</p>
         </div>
         {/* all articles */}
-        <div className='mt-8 w-full mx-auto border-2'>
+        <div className='mt-8 w-full mx-auto'>
           <h3 className='text-center font-playFair text-3xl font-bold'>All articles</h3>
           <div className='mt-4 w-[90%] mx-auto'>
             <div>
