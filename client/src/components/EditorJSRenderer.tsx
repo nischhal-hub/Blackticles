@@ -1,6 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { cn } from '../utils/cn.tsx'
 import { FaArrowDown } from "react-icons/fa6";
+import { FaArrowUp } from 'react-icons/fa';
 
 interface IRendererProp {
     data: string
@@ -20,14 +21,14 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const styles = {
         header: {
-            "1": "text-2xl font-urbanist font-bold my-2",
-            "2": "text-xl font-urbanist font-bold my-2",
-            "3": "text-lg font-urbanist font-bold my-2",
-            "4": "text-base font-urbanist font-bold my-2",
-            "5": "text-sm font-urbanist font-bold my-2",
-            "6": "text-md font-urbanist font-bold my-2",
+            "1": "text-2xl font-grot font-bold mt-4",
+            "2": "text-xl font-grot font-bold mt-4",
+            "3": "text-lg font-grot font-bold mt-4",
+            "4": "text-base font-grot font-bold mt-4",
+            "5": "text-sm font-grot font-bold mt-4",
+            "6": "text-md font-grot font-bold mt-4",
         },
-        paragraph: "text-base font-urbanist my-2 text-justify",
+        paragraph: "font-playFair text-xl mt-4 tracking-normal md:text-lg",
         list: {
             "ol": "list-decimal ml-5",
             "ul": "list-disc ml-5",
@@ -140,7 +141,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                                 cn(
                                     "w-full",
                                     "h-auto",
-                                    "my-4",
+                                    "mt-4",
                                     "overflow-hidden",
                                     image_data.withBorder ? "border-2 border-solid border-textLight" : "",
                                     image_data.withBackground ? "bg-secondary" : "",
@@ -149,12 +150,12 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                             }>
                                 <img src={image_data.file.url} alt="image"
                                     className={cn(
-                                        'w-auto',
+                                        'w-[150%]',
                                         'm-auto',
                                         image_data.stretched ? "object-cover" : "object-contain"
                                     )} />
                                 {image_data.caption && (
-                                    <p className="text-center text-sm py-2 font-urbanist text-textLight">
+                                    <p className="font-sourceSerif font-medium text-center">
                                         {image_data.caption}
                                     </p>
                                 )}
@@ -166,7 +167,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
         }
         catch (err) {
             return (
-                <p className='text-center font-workSans text-2xl'>Couldn't fetch data;</p>
+                <p className='text-center font-grot text-2xl'>Couldn't fetch data;</p>
             );
         }
     }, [])
@@ -192,7 +193,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
             )}>
                 {dataBlocks(styles, data)}
             </div>
-            {showReadMore && <div className='text-center cursor-pointer text-accent font-semibold' onClick={()=>setShowMore(v=>!v)}>{showMore?`Read Less`:'Read More'}</div>}
+            {showReadMore && <div className='text-center cursor-pointer text-accent font-semibold' onClick={()=>setShowMore(v=>!v)}>{showMore?(<p><FaArrowUp/>Read Less</p>):(<p><FaArrowDown/>Read More</p>)}</div>}
         </>
     )
 }
