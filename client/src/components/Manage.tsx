@@ -30,7 +30,7 @@ const Manage = () => {
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2'>
                         {Array.from({ length: 5 }).map((_, i) => (
                             <div key={i} className='relative' onClick={() => (setShowOverlay((prev) => {
-                                if (prev.index === i)
+                                if (prev.index === i && prev.show===true)
                                     return { index: prev.index, show: false }
                                 else
                                     return { index: i, show: true }
