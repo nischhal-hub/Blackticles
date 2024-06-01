@@ -9,7 +9,7 @@ const Modal: FC<TModalProp> = (prop) => {
     if (!prop.show)
         return null;
     return ReactDOM.createPortal(
-        <div className="bg-whiteTransparent w-full h-screen fixed top-0 right-0 flex justify-center items-center">
+        <div className="bg-whiteTransparent w-full h-screen fixed top-0 right-0 flex justify-center items-center z-50">
             <div className="relative w-[80%] sm:w-[40%] px-2 h-44 bg-red-600 border-[1px] border-solid border-black flex flex-col justify-center items-center">
                 <div className="absolute top-1 right-3">
                     <button onClick={prop.onCloseButtonClick} className='text-4xl text-white'>&times;</button>

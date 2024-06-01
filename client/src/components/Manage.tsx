@@ -31,7 +31,7 @@ const Manage = () => {
                                         animate={showOverlay.show?"show":"hide"}
                                         variants={variants}
                                         className={cn(
-                                            'w-[90%] m-auto z-30',showOverlay.index ===i && 'bg-whiteTransparent', 'absolute bottom-0 left-0 top-0 right-0 flex items-end'
+                                            'w-[90%] m-auto z-10',showOverlay.index ===i && 'bg-whiteTransparent', 'absolute bottom-0 left-0 top-0 right-0 flex items-end'
                                         )}>
                                         {showOverlay.show === true && showOverlay.index === i &&
                                         <div className='w-full m-4 z-50 '>
