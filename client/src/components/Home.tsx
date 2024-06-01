@@ -24,10 +24,10 @@ const Home = () => {
   const [showFilter, setShowFilter] = useState(false)
   const variant = {
     open: {
-      opacity: 1, y: 0,
+      opacity:1, height:'auto',y:0
     },
     close: {
-      opacity: 0, y: "-120%"
+      opacity: 0,y:'-200%',height:0
     }
   }
   const onSubmit: SubmitHandler<TDates> = (data) => {
@@ -59,14 +59,10 @@ const Home = () => {
               <p onClick={() => (setShowFilter(v => !v))} className='font-grot flex items-center px-2 py-1 border-[1px] border-slate-400 w-fit cursor-pointer'><MdOutlineKeyboardArrowDown className='text-xl mr-2' /> Filter : By date</p>
             </div>
             <motion.div
+              initial='close'
               animate={showFilter ? "open" : "close"}
               variants={variant}
               transition={{ duration: .3 }}
-              className={cn(
-                "overflow-hidden",
-                showFilter ? "h-auto" : "h-0",
-                "z-0"
-              )}
             >
               <form onSubmit={handleSubmit(onSubmit)} >
                 <div className='w-full mt-2 sm:w-[30%] sm:flex sm:items-center sm:space-x-4'  >

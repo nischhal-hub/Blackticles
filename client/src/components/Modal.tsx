@@ -5,7 +5,6 @@ type TModalProp = {
     onCloseButtonClick: () => void;
 }
 const Modal: FC<TModalProp> = (prop) => {
-    console.log(prop)
     if (!prop.show)
         return null;
     return ReactDOM.createPortal(
