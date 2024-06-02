@@ -6,31 +6,35 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Back from './Back'
 import Editor from './Editor'
+import Toaster from './Toaster'
+import { useGlobalContext } from '../hooks/useGlobalContext'
+import { TiTick } from 'react-icons/ti'
 
 
-type TFormFields ={
-    title:string;
-    overview:string;
-    image:File;
-    description:string;
+type TFormFields = {
+    title: string;
+    overview: string;
+    image: File;
+    description: string;
 }
 
 const Postblog = () => {
-    const {register, handleSubmit,formState:{errors}} = useForm<TFormFields>()
+    const { register, handleSubmit, formState: { errors } } = useForm<TFormFields>()
+    const {setToasterStat}=useGlobalContext()
     const [image, setImage] = useState<string>("")
-    const onSubmit : SubmitHandler<TFormFields> = (data)=>{
+    const onSubmit: SubmitHandler<TFormFields> = (data) => {
         console.log(data)
     }
-    const handleChange = (e: any)=>{
+    const handleChange = (e: any) => {
         const imageURL = e.target?.files[0]
-        if(imageURL){
+        if (imageURL) {
             setImage(URL.createObjectURL(imageURL))
         }
     }
     return (
         <>
-            <div className='min-h-screen'>
-                <div className='w-full md:w-[60%] mx-auto h-20 bg-black text-white flex items-center justify-center relative overflow-hidden'>
+            <div className='min-h-screen relative'>
+                <div className='w-full md:w-[60%] mx-auto h-20 bg-black text-white flex items-center justify-center overflow-hidden'>
                     <img src={arrow} alt="arrow" className='w-12 absolute -top-5 left-0 origin-center rotate-45' />
                     <img src={arrow} alt="arrow" className='w-12 absolute -bottom-3 right-0 origin-center -rotate-45' />
                     <img src={arrow2} alt="arrow" className='w-24 absolute -bottom-12 right-2 origin-center rotate-270' />
@@ -40,31 +44,32 @@ const Postblog = () => {
                         <p className='w-[130%] tracking-widest text-xl'>{Array.from({ length: 20 }).map((_, i) => (<span key={i} className='font-light'> Create <span className='font-bold'> Awesometicles </span></span>))}</p>
                     </div>
                 </div>
-
-                <div className='w-[95%] md:w-[40%] mx-auto mt-6'>
-                <Back url={'/'}/>
-                <div className="form w-full mt-4">
+                <Toaster />
+                <div className='w-[95%] md:w-[40%] mx-auto mt-6 relative'>
+                    <Back url={'/'} />
+                    <div className="form w-full mt-4">
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div >
-                                
+
                                 <p className='text-textLight text-2xl font-semibold font-playFair'>Blog title.</p>
                                 <div className='flex flex-col mt-4'>
                                     <div className='flex flex-col w-full'>
                                         <p className='font-grot font-normal text-sm'>Title</p>
-                                        <input type="text" {...register('title',{
-                                            required:"Enter the title.",
-                                            
+                                        <input type="text" {...register('title', {
+                                            required: "Enter the title.",
+
                                         }
                                         )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
                                         {errors.title && <span className='text-sm text-error font-sourceSerif mt-2'>{errors.title.message}</span>}
                                     </div>
                                     <div className='flex flex-col mt-3 w-full'>
                                         <p className='font-grot font-normal text-sm text-textSecondary-100 my-1'>Overview</p>
-                                        <input type="text" {...register('overview',{
-                                            required:"Enter the overview."}
+                                        <input type="text" {...register('overview', {
+                                            required: "Enter the overview."
+                                        }
                                         )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm' placeholder='Short description for your blog.' />
                                         {errors.overview && (<span className='text-sm text-error font-grot mt-2'>{errors.overview.message}</span>)}
-                                   
+
                                     </div>
                                 </div>
                             </div>
@@ -74,15 +79,15 @@ const Postblog = () => {
                                 <p className='font-grot font-normal text-xs text-textLight'>PNG,GIF,WEBP Max=30MB.</p>
                                 <div className='w-full lg:w-[60%] relative'>
                                     <BiSolidImageAdd className='absolute top-0 left-0 bottom-0 right-0 m-auto w-full text-2xl text-textSecondary-200' />
-                                    
+
                                     <label htmlFor="file" className='bg-accent absolute top-4 right-6 font-normal text-xl rounded-[50px] px-2 py-1 cursor-pointer z-20'><FaCloudUploadAlt /></label>
                                     <label htmlFor="file" className='bg-accent absolute top-5 right-7 font-normal text-xs rounded-[50px] px-2 py-1 cursor-pointer animate-ping z-10'><FaCloudUploadAlt /></label>
                                     <div className='w-full  mt-4 bg-slate-100 rounded-md overflow-hidden flex items-center justify-center aspect-video border-[1px] border-slate-300'>
                                         <img src={image} className='object-contain' />
                                         <div className='w-[0.1px] opacity-0 overflow-hidden'>
-                                            <input type="file" id='file' {...register('image',{
-                                                required:"Image file required.",
-                                                onChange: (e)=>handleChange(e),
+                                            <input type="file" id='file' {...register('image', {
+                                                required: "Image file required.",
+                                                onChange: (e) => handleChange(e),
                                             }
                                             )} />
                                         </div>
@@ -94,17 +99,17 @@ const Postblog = () => {
 
                                 <div className='flex flex-col w-full'>
                                     <p className='font-grot font-normal text-sm text-textSecondary-100 my-1'>Description</p>
-                                    <input type="text" {...register('description',{
-                                            required:"Enter the description.",
-                                            
-                                        }
-                                        )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                                    <input type="text" {...register('description', {
+                                        required: "Enter the description.",
+
+                                    }
+                                    )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
                                     <Editor />
                                 </div>
                             </div>
                             <div className='flex justify-center items-center'>
 
-                            <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg'>Submit</button>
+                                <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg' onClick={()=>setToasterStat({show:true,type:"accent",msg:"Blog posted succesfully.",icon:<TiTick/>})}>Submit</button>
                             </div>
                         </form>
                     </div>

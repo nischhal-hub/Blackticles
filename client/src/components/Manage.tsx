@@ -17,7 +17,7 @@ type TshowOverlay = {
 }
 
 const Manage = () => {
-    const { setDeleteId, isDeleted,setIsDeleted } = useGlobalContext()
+    const { setDeleteId } = useGlobalContext()
     const [isShowing, toggle] = useModal()
     const [showOverlay, setShowOverlay] = useState<TshowOverlay>({ index: 0, show: false });
     const variants = {
