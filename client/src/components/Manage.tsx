@@ -9,6 +9,7 @@ import { FaRegEye } from 'react-icons/fa6'
 import useModal from '../hooks/useModal'
 import Modal from './Modal'
 import { useGlobalContext } from '../hooks/useGlobalContext'
+import Toaster from './Toaster'
 
 type TshowOverlay = {
     index: number | null;
@@ -23,12 +24,7 @@ const Manage = () => {
         hide: { opacity: 0, height: "0%", zIndex: '-100' },
         show: { opacity: 1, height: 'auto', zIndex: '200' }
     }
-    useEffect(() => {
-        const timer = setTimeout(() => (
-            setIsDeleted(false)
-        ), 2000)
-        return () => clearTimeout(timer)
-    }, [isDeleted])
+
     return (
         <>
             <motion.div
@@ -37,20 +33,7 @@ const Manage = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: .2 }}
             >
-                {/* toaster */}
-                <motion.div
-                    initial={{ x: '100%' }}
-                    animate={isDeleted ? { x: 0 } : { x: '100%' }}
-                    exit={{ x: '100%' }}
-                    transition={{ duration: .3 }}
-                >
-                    <div className='px-2 py-4 bg-slate-200 w-fit border-red-600 border-[1px] font-grot absolute right-0'>
-                        <p className='flex items-center'><MdDeleteForever className='mr-2 text-xl text-red-600 font-bold' />Item deleted successfully.</p>
-                    </div>
-                </motion.div>
-
-
-
+                <Toaster />
                 <div className='min-h-screen'>
                     <div className='w-[90%] md:w-[60%] mx-auto'>
                         <h3 className='text-center font-playFair text-3xl font-bold mt-6'>Manage articles</h3>
