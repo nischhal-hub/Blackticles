@@ -5,7 +5,6 @@ import { FaFacebook, FaReddit } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import Card from './Card';
 import { motion } from 'framer-motion';
-import { SiTrueup } from 'react-icons/si';
 import { Link } from 'react-router-dom';
 const SingleBlog = () => {
   const imgURL = 'https://i.ytimg.com/vi/Aj8DdoGJ9Fk/hqdefault.jpg'

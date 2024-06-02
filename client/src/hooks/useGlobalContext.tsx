@@ -6,17 +6,23 @@ type AppContextType = {
     setCardLength:(value: number | ((prevLength: number) => number)) => void;
     deleteId: number;
     setDeleteId:(value: number | ((prevLength: number) => number)) => void;
-    isDeleted:boolean;
-    setIsDeleted:(value:boolean | ((prevValue: boolean)=>boolean))=>void;
+    toasterStat:TToaster;
+    setToasterStat:any;
+}
+type TToaster = {
+    show:boolean;
+    type:string;
+    msg:string;
+    icon:JSX.Element|null;
 }
 
 const AppContext = createContext<AppContextType|undefined>(undefined);
 const AppProvider : FC<TChildrenProp> = ({children})=>{
     const [cardLength , setCardLength] = useState(0)
     const [deleteId, setDeleteId] = useState(0)
-    const [isDeleted, setIsDeleted] = useState(false)
+    const [toasterStat, setToasterStat] = useState<TToaster>({show:false,type:"",msg:"",icon:null})
 
-    return <AppContext.Provider value={{cardLength, setCardLength,setDeleteId,deleteId, isDeleted,setIsDeleted}}>
+    return <AppContext.Provider value={{cardLength, setCardLength,setDeleteId,deleteId, toasterStat,setToasterStat}}>
         {children}
     </AppContext.Provider>
 }
