@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import React, { FC } from 'react'
 import ReactDOM from 'react-dom'
+import { useGlobalContext } from '../hooks/useGlobalContext';
 type TModalProp = {
     show: boolean;
     onCloseButtonClick: () => void;
 }
 const Modal: FC<TModalProp> = (prop) => {
+    const {deleteId,setIsDeleted} = useGlobalContext()
     const variants = {
         open: { height: '100%', opacity: 1 },
         close: { height: 0, opacity: 0 }
@@ -26,7 +28,7 @@ const Modal: FC<TModalProp> = (prop) => {
                     Are you sure you want to delete this blog?
                 </div>
                 <div className='space-x-8 mt-4'>
-                    <button className='px-2 py-1 bg-white text-red-600 font-grot text-sm'>Shwoosh!!</button>
+                    <button onClick={()=>{prop.onCloseButtonClick(); setIsDeleted(true)}} className='px-2 py-1 bg-white text-red-600 font-grot text-sm'>Shwoosh!!</button>
                     <button onClick={prop.onCloseButtonClick} className='px-2 py-1 bg-accent font-grot text-sm'>No</button>
                 </div>
             </div>
