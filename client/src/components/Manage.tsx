@@ -23,6 +23,13 @@ const Manage = () => {
     }
     return (
         <>
+        <motion.div
+             initial={{opacity:0}}
+             animate={{opacity:1}}
+             exit={{opacity:0}}
+             transition={{duration:.2}}
+        >
+
             <div className='min-h-screen'>
                 <div className='w-[90%] md:w-[60%] mx-auto'>
                     <Modal show={isShowing} onCloseButtonClick={toggle} />
@@ -62,6 +69,7 @@ const Manage = () => {
                     </div>
                 </div>
             </div>
+        </motion.div>
         </>
     )
 }

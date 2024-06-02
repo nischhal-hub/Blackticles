@@ -14,6 +14,7 @@ const SingleBlog = () => {
      <motion.div
         initial={{opacity:0}}
         animate={{ opacity: 1 }}
+        exit={{opacity:0}}
         transition={{duration:.5}} >
       <div className="min-h-screen mt-10">
         <div className='w-[90%] md:w-[60%] mx-auto'>

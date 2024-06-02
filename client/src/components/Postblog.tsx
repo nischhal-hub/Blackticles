@@ -68,7 +68,7 @@ const Postblog = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="upload mt-6">
+                            <div className="upload mt-6 focus:snap-none">
                                 <p className='text-textLight text-2xl font-semibold font-playFair'>Upload your file</p>
                                 <p className='font-grot font-normal text-xs text-textLight mt-3'>Upload thumbnail.</p>
                                 <p className='font-grot font-normal text-xs text-textLight'>PNG,GIF,WEBP Max=30MB.</p>

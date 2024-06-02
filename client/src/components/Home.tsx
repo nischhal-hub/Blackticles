@@ -41,6 +41,12 @@ const Home = () => {
   //console.log(cardHolderRef.current?.clientHeight)
   return (
     <>
+      <motion.div 
+        initial={{opacity:0}}
+        animate={{opacity:1}}
+        exit={{opacity:0}}
+        transition={{duration:.2}}
+      >
 
       {/* Hero blog */}
       <div className='w-full mt-10 md:w-[60%] mx-auto'>
@@ -86,6 +92,7 @@ const Home = () => {
           </div>
         </div>
       </div >
+      </motion.div>
 
     </>
   )

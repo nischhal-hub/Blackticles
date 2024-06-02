@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Back from './Back'
 import Editor from './Editor'
+import { motion } from 'framer-motion'
 
 
 type TFormFields ={
@@ -29,6 +30,12 @@ const Editblog = () => {
     }
     return (
         <>
+        <motion.div
+             initial={{opacity:0}}
+             animate={{opacity:1}}
+             exit={{opacity:0}}
+             transition={{duration:.2}}
+        >
             <div className='min-h-screen'>
                 <div className='w-full md:w-[60%] mx-auto h-20 bg-black text-white flex items-center justify-center relative overflow-hidden'>
                     <img src={arrow} alt="arrow" className='w-12 absolute -top-5 left-0 origin-center rotate-45' />
@@ -110,6 +117,7 @@ const Editblog = () => {
                     </div>
                 </div>
             </div>
+            </motion.div>
         </>
     )
 }

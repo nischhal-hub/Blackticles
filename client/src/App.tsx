@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { Routes,Route } from 'react-router-dom'
+import { Routes,Route, useLocation } from 'react-router-dom'
 import SharedLayout from './components/SharedLayout'
 import Home from './components/Home'
 import SingleBlog from './components/SingleBlog'
@@ -8,10 +8,13 @@ import Postblog from './components/Postblog'
 import Search from './components/Search'
 import Manage from './components/Manage'
 import Editblog from './components/EditBlog'
+import { AnimatePresence } from 'framer-motion'
 function App() {
+  const location = useLocation();
   return (
     <>
-    <Routes>
+    <AnimatePresence mode='wait' initial={false}>
+    <Routes location={location} key={location.pathname}>
       <Route path='/' element={<SharedLayout />}>
         <Route path='/' element={<Home />}/>
         <Route path='/blog' element={<SingleBlog />}/>
@@ -22,6 +25,7 @@ function App() {
         <Route path='/edit' element={<Editblog />}/>
       </Route>
     </Routes>
+    </AnimatePresence>
     </>
   )
 }
