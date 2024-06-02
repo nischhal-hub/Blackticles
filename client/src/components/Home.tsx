@@ -9,6 +9,7 @@ import { motion } from 'framer-motion'
 import { cn } from '../utils/cn';
 import { useQuery } from '@tanstack/react-query';
 import { fetchAll } from '../api';
+import { useGlobalContext } from '../hooks/useGlobalContext';
 
 type TDates = {
   startDate: Date;
@@ -20,8 +21,11 @@ const Home = () => {
   //   queryFn: ()=>fetchAll(),
   //   queryKey: ['blogs']
   // })
+  const {cardLength} = useGlobalContext()
   const { register, handleSubmit, formState: { errors } } = useForm<TDates>()
   const [showFilter, setShowFilter] = useState(false)
+  //const [showLoading, setShowLoading] = useState(true)
+  const cardHolderRef = useRef<HTMLDivElement>(null)
   const variant = {
     open: {
       opacity:1, height:'auto',y:0
@@ -33,12 +37,8 @@ const Home = () => {
   const onSubmit: SubmitHandler<TDates> = (data) => {
     console.log(data);
   }
-  // if(isLoading){
-  //   return
-  //   <div className='w-full mt-10 md:w-[60%] mx-auto'>
-  //     <img src={aniLogo} alt="logo" />
-  //   </div>
-  // }
+
+  //console.log(cardHolderRef.current?.clientHeight)
   return (
     <>
 
@@ -81,8 +81,8 @@ const Home = () => {
               </form>
             </motion.div>
           </div>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2'>
-            {Array.from({ length: 5 }).map((_, i) => (<Link key={i} to='/blog' ><Card showTransition={true}/></Link>))}
+          <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 border-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
+            {Array.from({ length: 9 }).map((_, i) => (<Link key={i} to='/blog' ><Card showTransition={true}/></Link>))}
           </div>
         </div>
       </div >

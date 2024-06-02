@@ -53,19 +53,21 @@ const Navbar = () => {
 
         {/* Sidebar */}
         <motion.div
+          initial = {{opacity:0}}
           animate={isSidebarOpen ? "open" : "closed"}
           variants={variantSidebar}
           transition={{ duration: .3 }}
           className='fixed bg-[rgba(0,0,0,0.5)] w-[120%] h-screen top-0 right-0 z-20'>
         </motion.div>
         <motion.div
+          initial = {{opacity:0}}
           animate={isSidebarOpen ? "open" : "closed"}
           variants={variantSidebar2}
           transition={{ duration: .2 }}
           className='fixed right-0 top-0 w-[50%] h-screen bg-[#fafafa] z-30'>
           <ul className='font-playFair space-y-8 text-lg font-medium mt-16 ml-6'>
             {links.map((link:TLinks, i:number) => (<p className='relative' key={i}><NavLink className={({ isActive }) =>
-              isActive ? "anchorline2" : "anchorline"
+              isActive ? "anchorline2" : "anchorline" //custom css
             } to={link.url} onClick={() => setIsSidebarOpen(v => !v)}><li className='flex items-center'><span className='text-xl mr-2'>{link.icon}</span>{link.label}</li></NavLink></p>
             ))}
           </ul>

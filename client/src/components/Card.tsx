@@ -1,25 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react'
 import thumbnail from '../assets/Rectangle 12.png'
 import { cn } from '../utils/cn';
+//import { useGlobalContext } from '../hooks/useGlobalContext';
 
 
 type TProp = {
     showTransition: boolean;
 }
 const Card = (prop: TProp) => {
+    //const {setCardLength,cardLength} = useGlobalContext()
     const [showEllipses, setShowEllipses] = useState(false);
-    
     const paraRef = useRef<HTMLDivElement>(null)
+    // const cardRef = useRef<HTMLDivElement>(null)
+
     useEffect(() => {
         if (paraRef.current) {
             const { scrollHeight, clientHeight } = paraRef.current
-            console.log(scrollHeight)
-            console.log(clientHeight)
             if (scrollHeight > clientHeight) {
                 setShowEllipses(true);
             }
         }
-    }, [paraRef.current])
+    }, [])
+    // const getListSize = () => {
+    //     if(cardRef.current){
+    //     const newHeight = cardRef.current.clientWidth;
+    //     setCardLength(newHeight*3.5);
+    // }
+    // };
+
+    // useEffect(() => {
+    //     window.addEventListener("resize", getListSize);
+    //   }, []);
     return (
         <>
             <div className={cn(
@@ -28,13 +39,12 @@ const Card = (prop: TProp) => {
                 'mt-6',
                 'hover:shadow-lg',
                 !prop.showTransition ? '' : 'hover:-translate-y-1 transition-transform'
-            )} >
+            )}>
                 <div className='w-full h-52 overflow-hidden'>
                     <img src={thumbnail} alt="blog picutre" className='w-full h-full object-cover' />
                 </div>
                 <div className='h-20 overflow-hidden mb-2 relative' ref={paraRef}>
                     {showEllipses && <p className='absolute -bottom-1 right-1 font text-2xl'>....</p>}
-
                     <p className='text-center mx-6 font-grot text-lg font-normal' >Granny gives everyone the finger, and other tips from OFFF Barcelona. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi, repudiandae?</p>
                 </div>
                 <div className='border-t-[0.3px] border-slate-700 flex justify-between mx-2 font-light text-xs font-sourceSerif py-2'>
