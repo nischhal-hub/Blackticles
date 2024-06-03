@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import BlogPost from "../models/blogPosts.js";
 import { rm } from "fs";
+import { singleUpload } from "../middlewares/multer.js";
+import slugify from "slugify";
 
 export const getAllBlogs = async (
   req: Request,
@@ -24,8 +26,8 @@ export const getSingleBlog = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
-    const blog = await BlogPost.findById(id);
+    const { slug } = req.params;
+    const blog = await BlogPost.findOne({ slug });
     if (!blog) {
       return res.status(404).json({
         success: false,
@@ -35,60 +37,48 @@ export const getSingleBlog = async (
 
     res.json({
       success: true,
-      message: `Blog with id:${blog._id} found`,
+      message: `Blog ${blog.slug} found`,
       blog,
     });
   } catch (err) {
     next(err);
   }
 };
-
 export const addBlogs = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { title, overview, description, createdAt, updatedAt } = req.body;
+    const { title, overview, description } = req.body;
     const image = req.file;
-    if (!image)
-      return res.status(404).json({
-        success: false,
-        message: "Photo not found",
-      });
 
-    if (!image)
-      return res.status(404).json({
-        success: false,
-        message: "Image created Successfully",
-      });
-
-    if (!title || !overview || !description) {
-      rm(image.path, () => {
-        console.log("Deleted");
-      });
-
+    if (!image) {
       return res.status(400).json({
         success: false,
-        message: "Enter all field properly",
+        message: "Image is required",
       });
     }
-
-    const blogs = await BlogPost.create({
+    const slug = slugify(title, { lower: true, strict: true });
+    const newBlogPost = new BlogPost({
       title,
       overview,
       description,
-      createdAt,
-      updatedAt,
+      slug,
       image: image.path,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
+
+    const savedBlogPost = await newBlogPost.save();
+
     res.status(201).json({
       success: true,
       message: "Blog Added Successfully",
-      blogs,
+      blog: savedBlogPost,
     });
   } catch (err) {
-    next(err);
+    console.log(err);
   }
 };
 
@@ -178,6 +168,7 @@ export const filterBlog = async (req: Request, res: Response) => {
     }));
 
     res.json(formattedPosts);
+    console.log(formattedPosts);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch blogs" });
   }
@@ -199,6 +190,30 @@ export const searchByTitle = async (req: Request, res: Response) => {
   }
 };
 
+export const addSingleImage = async (req: Request, res: Response) => {
+  try {
+    const image = req.file;
+    if (!image) {
+      return res.status(404).json({
+        success: false,
+        message: "No Image found",
+      });
+    }
+    const singleImage = await BlogPost.create({ image: image.path });
+    res.status(201).json({
+      success: true,
+      message: "Single Image Added Successfully",
+      singleImage,
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "failed to create Image",
+      message: `The error is:${err}`,
+    });
+  }
+};
+
+//For Upload Testing
 export const uploadImage = async (req: Request, res: Response) => {
   res.json(req.file);
 };

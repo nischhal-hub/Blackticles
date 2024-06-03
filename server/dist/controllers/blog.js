@@ -1,5 +1,5 @@
 import BlogPost from "../models/blogPosts.js";
-import { rm } from "fs";
+import slugify from "slugify";
 export const getAllBlogs = async (req, res, next) => {
     try {
         const blogs = await BlogPost.find({});
@@ -14,8 +14,8 @@ export const getAllBlogs = async (req, res, next) => {
 };
 export const getSingleBlog = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const blog = await BlogPost.findById(id);
+        const { slug } = req.params;
+        const blog = await BlogPost.findOne({ slug });
         if (!blog) {
             return res.status(404).json({
                 success: false,
@@ -24,7 +24,7 @@ export const getSingleBlog = async (req, res, next) => {
         }
         res.json({
             success: true,
-            message: `Blog with id:${blog._id} found`,
+            message: `Blog ${blog.slug} found`,
             blog,
         });
     }
@@ -34,43 +34,33 @@ export const getSingleBlog = async (req, res, next) => {
 };
 export const addBlogs = async (req, res, next) => {
     try {
-        const { title, overview, description, createdAt, updatedAt } = req.body;
+        const { title, overview, description } = req.body;
         const image = req.file;
-        if (!image)
-            return res.status(404).json({
-                success: false,
-                message: "Photo not found",
-            });
-        if (!image)
-            return res.status(404).json({
-                success: false,
-                message: "Image created Successfully",
-            });
-        if (!title || !overview || !description) {
-            rm(image.path, () => {
-                console.log("Deleted");
-            });
+        if (!image) {
             return res.status(400).json({
                 success: false,
-                message: "Enter all field properly",
+                message: "Image is required",
             });
         }
-        const blogs = await BlogPost.create({
+        const slug = slugify(title, { lower: true, strict: true });
+        const newBlogPost = new BlogPost({
             title,
             overview,
             description,
-            createdAt,
-            updatedAt,
+            slug,
             image: image.path,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         });
+        const savedBlogPost = await newBlogPost.save();
         res.status(201).json({
             success: true,
             message: "Blog Added Successfully",
-            blogs,
+            blog: savedBlogPost,
         });
     }
     catch (err) {
-        next(err);
+        console.log(err);
     }
 };
 export const editBlogs = async (req, res, next) => {
@@ -142,6 +132,7 @@ export const filterBlog = async (req, res) => {
             updatedAt: post.updatedAt.toISOString(),
         }));
         res.json(formattedPosts);
+        console.log(formattedPosts);
     }
     catch (err) {
         res.status(500).json({ error: "Failed to fetch blogs" });
@@ -163,6 +154,30 @@ export const searchByTitle = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch blogs" });
     }
 };
+export const addSingleImage = async (req, res) => {
+    try {
+        const image = req.file;
+        if (!image) {
+            return res.status(404).json({
+                success: false,
+                message: "No Image found",
+            });
+        }
+        const singleImage = await BlogPost.create({ image: image.path });
+        res.status(201).json({
+            success: true,
+            message: "Single Image Added Successfully",
+            singleImage,
+        });
+    }
+    catch (err) {
+        res.status(500).json({
+            error: "failed to create Image",
+            message: `The error is:${err}`,
+        });
+    }
+};
+//For Upload Testing
 export const uploadImage = async (req, res) => {
     res.json(req.file);
 };
