@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import blogRoutes from "./routes/blogRoutes.js";
 import { connectDB } from "./data/database.js";
+
 config({
   path: "./.env",
 });
@@ -11,6 +12,7 @@ config({
 const app = express();
 
 //using middlewares
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
@@ -32,7 +34,7 @@ app.get("/", (req, res) => {
 
 await connectDB();
 
-const Port = process.env.PORT;
+const Port = process.env.PORT || 5000;
 
 app.listen(Port, () => {
   console.log(`Server is working in port: ${Port}`);

@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import BlogPost from "../models/blogPosts.js";
-import { rm } from "fs";
 import { singleUpload } from "../middlewares/multer.js";
 import slugify from "slugify";
 
@@ -60,6 +59,7 @@ export const addBlogs = async (
       });
     }
     const slug = slugify(title, { lower: true, strict: true });
+
     const newBlogPost = new BlogPost({
       title,
       overview,
