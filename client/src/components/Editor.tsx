@@ -5,8 +5,10 @@ import List from '@editorjs/list'
 import RawTool from '@editorjs/raw'
 //import ImageTool from '@editorjs/image'
 import axios from 'axios'
+import { useGlobalContext } from '../hooks/useGlobalContext'
 
 const Editor = ({blockdata}:any) => {
+    const {setDescription} = useGlobalContext()
     console.log(blockdata)
     const DEFAULT_INITIAL_DATA = {
         "time": new Date().getTime(),
@@ -31,8 +33,8 @@ const Editor = ({blockdata}:any) => {
             data:initData || DEFAULT_INITIAL_DATA,
             onChange: async () => {
                 let content = await editor.saver.save()
-                console.log(content)
-                //setDescription(content)
+                let blogContent = JSON.stringify(content)
+                setDescription(blogContent)
             },
             tools: {
                 header: {

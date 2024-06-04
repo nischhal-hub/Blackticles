@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = '/api/blog/getAll'
+const url = 'http://localhost:5002/api/blogs'
 export const fetchAll = async()=>{
     try{
         const resp = await axios(`${url}/all`)
@@ -20,11 +20,11 @@ export const fetchSingle = async(id:string)=>{
     }
 }
 
-export const postBlog = async(blogData:string)=>{
+export const postBlog = async(blogData:FormData)=>{
     try{
         const resp = await axios.post(`${url}/new`,blogData,{
             headers:{
-                'Content-type':'application/json'
+                'Content-type':'multipart/form-data'
             }
         })
         return resp.data

@@ -9,21 +9,46 @@ import Editor from './Editor'
 import Toaster from './Toaster'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 import { TiTick } from 'react-icons/ti'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { postBlog } from '../api'
 
 
 type TFormFields = {
     title: string;
     overview: string;
     image: File;
-    description: string;
+    //description: string;
+}
+type TPostData = {
+    formData : FormData;
 }
 
 const Postblog = () => {
+    const {description} = useGlobalContext()
     const { register, handleSubmit, formState: { errors } } = useForm<TFormFields>()
+    const queryClient = useQueryClient()
     const {setToasterStat}=useGlobalContext()
     const [image, setImage] = useState<string>("")
+    const {mutate, isPending, isSuccess} = useMutation(
+        {
+            mutationFn:({formData}:TPostData)=>postBlog(formData)
+        }
+    )
     const onSubmit: SubmitHandler<TFormFields> = (data) => {
         console.log(data)
+        const formData = new FormData();
+        formData.append("title", data.title)
+        formData.append("overview", data.overview)
+        formData.append("description", description)
+        formData.append("image", data.image[0])
+        mutate({ formData }, {
+            onSuccess: () => {
+                setToasterStat({show:true,type:"accent",msg:"Blog posted succesfully.",icon:<TiTick/>})
+                queryClient.invalidateQueries({
+                    queryKey: ['blogs']
+                })
+            }
+        })
     }
     const handleChange = (e: any) => {
         const imageURL = e.target?.files[0]
@@ -99,17 +124,17 @@ const Postblog = () => {
 
                                 <div className='flex flex-col w-full'>
                                     <p className='font-grot font-normal text-sm text-textSecondary-100 my-1'>Description</p>
-                                    <input type="text" {...register('description', {
+                                    {/* <input type="text" {...register('description', {
                                         required: "Enter the description.",
 
                                     }
-                                    )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                                    )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' /> */}
                                     <Editor />
                                 </div>
                             </div>
                             <div className='flex justify-center items-center'>
 
-                                <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg' onClick={()=>setToasterStat({show:true,type:"accent",msg:"Blog posted succesfully.",icon:<TiTick/>})}>Submit</button>
+                                <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg' >Submit</button>
                             </div>
                         </form>
                     </div>

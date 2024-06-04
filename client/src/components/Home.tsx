@@ -17,11 +17,12 @@ type TDates = {
 }
 
 const Home = () => {
-  // const {data, isLoading} = useQuery({
-  //   queryFn: ()=>fetchAll(),
-  //   queryKey: ['blogs']
-  // })
-  const {cardLength} = useGlobalContext()
+  const {data, isLoading} = useQuery({
+    queryFn: ()=>fetchAll(),
+    queryKey: ['blogs']
+  })
+  console.log(data)
+  // const {cardLength} = useGlobalContext()
   const { register, handleSubmit, formState: { errors } } = useForm<TDates>()
   const [showFilter, setShowFilter] = useState(false)
   //const [showLoading, setShowLoading] = useState(true)
@@ -39,6 +40,7 @@ const Home = () => {
   }
 
   //console.log(cardHolderRef.current?.clientHeight)
+  
   return (
     <>
       <motion.div 
