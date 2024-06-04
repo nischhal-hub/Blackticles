@@ -54,7 +54,8 @@ const SingleBlog = () => {
               </ul>
             </div>
           </div>
-            <EditorJSRenderer data={data?.blog?.description}/>
+          {data && <EditorJSRenderer data={data?.blog?.description}/>}
+            
           {/* for pargraph */}
           {/* <p className='font-playFair text-xl mt-4 tracking-normal md:text-lg'>This lovely web is full of everything which is created I don't know what in mind, considering that sometimes totally bonkers stuff might be highly relevant if it has the right kind of thinking behind it. </p> */}
           {/* for heading */}

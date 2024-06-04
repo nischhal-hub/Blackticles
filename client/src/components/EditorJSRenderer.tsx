@@ -173,6 +173,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
     }, [])
 
     useEffect(() => {
+        console.log("i am running")
         if (containerRef.current) {
             const { scrollHeight, clientHeight } = containerRef.current;
             if (scrollHeight > clientHeight) {
@@ -181,7 +182,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                 setShowReadMore(false);
             }
         }
-    }, [])
+    }, [data])
     return (
         <>
             <div ref={containerRef} className={cn(
@@ -193,7 +194,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
             )}>
                 {dataBlocks(styles, data)}
             </div>
-            {showReadMore && <div className='text-center cursor-pointer text-accent font-semibold' onClick={()=>setShowMore(v=>!v)}>{showMore?(<p><FaArrowUp/>Read Less</p>):(<p><FaArrowDown/>Read More</p>)}</div>}
+            {showReadMore && <div className='text-center cursor-pointer text-accent font-semibold' onClick={()=>setShowMore(v=>!v)}>{showMore?(<p className='flex items-center justify-center'><FaArrowUp className='mr-2'/>Read Less</p>):(<p className='flex items-center justify-center'><FaArrowDown className='mr-2'/>Read More</p>)}</div>}
         </>
     )
 }
