@@ -48,7 +48,6 @@ const Postblog = () => {
                 queryClient.invalidateQueries({
                     queryKey: ['blogs']
                 })
-                setValue
             }
         })
     }

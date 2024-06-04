@@ -4,8 +4,8 @@ import { TChildrenProp } from "../type";
 type AppContextType = {
     cardLength: number;
     setCardLength:(value: number | ((prevLength: number) => number)) => void;
-    deleteId: number;
-    setDeleteId:(value: number | ((prevLength: number) => number)) => void;
+    deleteId: string;
+    setDeleteId:any;
     toasterStat:TToaster;
     setToasterStat:any;
     description:string;
@@ -21,7 +21,7 @@ type TToaster = {
 const AppContext = createContext<AppContextType|undefined>(undefined);
 const AppProvider : FC<TChildrenProp> = ({children})=>{
     const [cardLength , setCardLength] = useState(0)
-    const [deleteId, setDeleteId] = useState(0)
+    const [deleteId, setDeleteId] = useState("")
     const [description, setDescription] = useState("")
     const [toasterStat, setToasterStat] = useState<TToaster>({show:false,type:"",msg:"",icon:null})
 
