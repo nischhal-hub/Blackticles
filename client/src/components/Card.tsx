@@ -1,22 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import thumbnail from '../assets/Rectangle 12.png'
 import { cn } from '../utils/cn';
+import { TBlogContent } from '../type';
 //import { useGlobalContext } from '../hooks/useGlobalContext';
-interface IBlogContent {
-    _id?: string;
-    title?: string;
-    overview?: string;
-    description?: string;
-    image?: string;
-    slug?: string;
-    createdAt?: Date ;
-    updatedAt?: Date ;
-    __v?: number;
-}
 
 type TCardProp = {
     showTransition :boolean;
-    content: IBlogContent
+    content: TBlogContent
 }
 const Card = ({showTransition, content}: TCardProp) => {
     //console.log(content)

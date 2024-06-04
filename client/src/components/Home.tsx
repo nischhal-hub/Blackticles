@@ -11,23 +11,13 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchAll } from '../api';
 import { useGlobalContext } from '../hooks/useGlobalContext';
 import Loading from './Loading';
-
+import { TBlogContent } from '../type';
 type TDates = {
   startDate: Date;
   endDate: Date;
 }
 
-interface BlogPost {
-  _id: string;
-  title: string;
-  overview: string;
-  description: string;
-  image: string;
-  slug: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
+
 
 const Home = () => {
   const {data, isLoading} = useQuery({
@@ -104,7 +94,7 @@ const Home = () => {
             </motion.div>
           </div>
           <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
-            {data?.blogs?.map((item:BlogPost, i:number) => (<Link key={i} to={`/blog/${item.slug}`} ><Card showTransition={true} content={item}/></Link>))}
+            {data?.blogs?.map((item:TBlogContent, i:number) => (<Link key={i} to={`/blog/${item.slug}`} ><Card showTransition={true} content={item}/></Link>))}
           </div>
         </div>
       </div >
