@@ -23,7 +23,7 @@ function App() {
             <Route path='/search/:query' element={<Search />} />
             <Route path='/search' element={<Search />} />
             <Route path='/manage' element={<Manage />} />
-            <Route path='/edit' element={<Editblog />} />
+            <Route path='/edit/:query' element={<Editblog />} />
             <Route path='*' element={<Error />}></Route>
           </Route>
         </Routes>

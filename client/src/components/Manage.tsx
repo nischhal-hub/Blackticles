@@ -67,10 +67,10 @@ const Manage = () => {
 
                                         <div className='w-full m-4 z-50 '>
                                             <div className='flex justify-between space-x-2 mb-2'>
-                                                <button className='px-2 py-1 bg-accent font-grot text-md w-1/2 font-bold'><Link to='/edit'><span className='flex items-center justify-center'><CiEdit className='text-lg mr-1' />Edit</span></Link></button>
+                                                <button className='px-2 py-1 bg-accent font-grot text-md w-1/2 font-bold'><Link to={`/edit/${item?.slug}`}><span className='flex items-center justify-center'><CiEdit className='text-lg mr-1' />Edit</span></Link></button>
                                                 <button onClick={()=>{setDeleteId(item._id); toggle()}} className='px-2 py-1 bg-red-600 font-grot text-md text-white w-1/2 font-bold'><span className='flex items-center justify-center'><MdDeleteOutline className='text-lg mr-1' />Delete</span></button>
                                             </div>
-                                            <button className='px-2 py-1 bg-black text-white font-grot text-md w-full font-bold'><Link to={`/blog/${item.slug}`}><span className='flex items-center justify-center'><FaRegEye className='text-lg mr-1' />View</span></Link></button>
+                                            <button className='px-2 py-1 bg-black text-white font-grot text-md w-full font-bold'><Link to={`/blog/${item?.slug}`}><span className='flex items-center justify-center'><FaRegEye className='text-lg mr-1' />View</span></Link></button>
                                         </div>
 
                                     </motion.div>

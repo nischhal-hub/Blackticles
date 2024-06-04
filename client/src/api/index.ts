@@ -34,11 +34,11 @@ export const postBlog = async(blogData:FormData)=>{
     }
 }
 
-export const editBlog = async(blogData:string,id:string)=>{
+export const editBlog = async(formData:FormData,editId:string)=>{
     try{
-        const resp = await axios.put(`${url}/edit/${id}`,blogData,{
+        const resp = await axios.put(`${url}/edit/${editId}`,formData,{
             headers:{
-                'Content-type':'application/json'
+                'Content-type':'multipart/form-data'
             }
         })
         return resp.data
