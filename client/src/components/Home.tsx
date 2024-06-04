@@ -10,6 +10,7 @@ import { cn } from '../utils/cn';
 import { useQuery } from '@tanstack/react-query';
 import { fetchAll } from '../api';
 import { useGlobalContext } from '../hooks/useGlobalContext';
+import Loading from './Loading';
 
 type TDates = {
   startDate: Date;
@@ -52,9 +53,7 @@ const Home = () => {
   }
   //console.log(cardHolderRef.current?.clientHeight)
   if(isLoading){
-    return<div>
-      Loading...
-    </div>
+    return <Loading />
   }
   return (
     <>
