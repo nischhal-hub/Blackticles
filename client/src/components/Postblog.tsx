@@ -11,6 +11,7 @@ import { useGlobalContext } from '../hooks/useGlobalContext'
 import { TiTick } from 'react-icons/ti'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { postBlog } from '../api'
+import Loading from './Loading'
 
 
 type TFormFields = {
@@ -47,6 +48,7 @@ const Postblog = () => {
                 queryClient.invalidateQueries({
                     queryKey: ['blogs']
                 })
+                setValue
             }
         })
     }
@@ -55,6 +57,9 @@ const Postblog = () => {
         if (imageURL) {
             setImage(URL.createObjectURL(imageURL))
         }
+    }
+    if(isPending){
+        return <Loading />
     }
     return (
         <>

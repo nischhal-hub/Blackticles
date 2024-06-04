@@ -68,10 +68,10 @@ const Home = () => {
       <div className='w-full mt-10 md:w-[60%] mx-auto'>
         <div className=' border-b-2 border-solid border-slate-900 border-spacing-7 pb-8'>
           <div className='w-full aspect-video' >
-            <img src={`http://localhost:5002/${data.blogs[0].image}`} alt="picture" className='w-full' />
+            <img src={`http://localhost:5002/${data?.blogs?.[0]?.image}`} alt="picture" className='w-full' />
           </div>
-          <h1 className='font-playFair text-4xl font-bold text-center mx-4 mt-2'>{data.blogs[0].title}</h1>
-          <p className='font-grot font-light text-lg text-center mx-6 mt-4'>{data.blogs[0].overview}</p>
+          <h1 className='font-playFair text-4xl font-bold text-center mx-4 mt-2'>{data?.blogs?.[0]?.title}</h1>
+          <p className='font-grot font-light text-lg text-center mx-6 mt-4'>{data?.blogs?.[0]?.overview}</p>
         </div>
         {/* all articles */}
         <div className='mt-8 w-full mx-auto'>
@@ -104,7 +104,7 @@ const Home = () => {
             </motion.div>
           </div>
           <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
-            {data.blogs.map((item:BlogPost, i:number) => (<Link key={i} to='/blog' ><Card showTransition={true} content={item}/></Link>))}
+            {data?.blogs?.map((item:BlogPost, i:number) => (<Link key={i} to={`/blog/${item.slug}`} ><Card showTransition={true} content={item}/></Link>))}
           </div>
         </div>
       </div >

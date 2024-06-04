@@ -10,9 +10,9 @@ export const fetchAll = async()=>{
     }
 }
 
-export const fetchSingle = async(id:string)=>{
+export const fetchSingle = async(title:string|undefined)=>{
     try{
-        const resp = await axios(`${url}/single/${id}`)
+        const resp = await axios(`${url}/single/${title}`)
         return resp.data
     }catch(error){
         console.log(`Error Fetching single blog data: ${error}`)

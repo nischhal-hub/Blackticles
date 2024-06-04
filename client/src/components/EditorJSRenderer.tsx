@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { cn } from '../utils/cn.tsx'
+import {cn} from '../utils/cn'
 import { FaArrowDown } from "react-icons/fa6";
 import { FaArrowUp } from 'react-icons/fa';
 
@@ -30,8 +30,8 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
         },
         paragraph: "font-playFair text-xl mt-4 tracking-normal md:text-lg",
         list: {
-            "ol": "list-decimal ml-5",
-            "ul": "list-disc ml-5",
+            "ol": "list-decimal ml-5 ",
+            "ul": "list-disc ml-5 ",
         }
 
     }
@@ -72,7 +72,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                         }
                         const List = list_data.style === "ordered" ? "ol" : "ul";
                         return <List key={item.id} className={cn(
-                            'ml-5',
+                            'ml-5 font-grot',
                             list_data.style === "ordered" ? "list-decimal" : "list-disc"
                         )}>
                             {list_data.items.map((item: string,i:number) => (
