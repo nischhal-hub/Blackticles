@@ -10,6 +10,9 @@ import useModal from '../hooks/useModal'
 import Modal from './Modal'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 import Toaster from './Toaster'
+import { useQuery } from '@tanstack/react-query'
+import { fetchAll } from '../api'
+import { TBlogContent } from '../type'
 
 type TshowOverlay = {
     index: number | null;
@@ -17,6 +20,11 @@ type TshowOverlay = {
 }
 
 const Manage = () => {
+    const {data, isLoading} = useQuery({
+        queryFn: ()=>fetchAll(),
+        queryKey: ['blogs']
+      })
+      console.log(data)
     const { setDeleteId } = useGlobalContext()
     const [isShowing, toggle] = useModal()
     const [showOverlay, setShowOverlay] = useState<TshowOverlay>({ index: 0, show: false });
@@ -39,7 +47,7 @@ const Manage = () => {
                         <h3 className='text-center font-playFair text-3xl font-bold mt-6'>Manage articles</h3>
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2'>
                             <Modal show={isShowing} onCloseButtonClick={toggle} />
-                            {Array.from({ length: 5 }).map((_, i) => (
+                            {data?.blogs?.map((item:TBlogContent, i:number) => (
                                 <div key={i} className='relative' onClick={() => (setShowOverlay((prev) => {
                                     if (prev.index === i && prev.show === true)
                                         return { index: prev.index, show: false }
@@ -63,11 +71,11 @@ const Manage = () => {
                                                 <button onClick={() => (setDeleteId(i))} className='px-2 py-1 bg-accent font-grot text-md w-1/2 font-bold'><Link to='/edit'><span className='flex items-center justify-center'><CiEdit className='text-lg mr-1' />Edit</span></Link></button>
                                                 <button onClick={toggle} className='px-2 py-1 bg-red-600 font-grot text-md text-white w-1/2 font-bold'><span className='flex items-center justify-center'><MdDeleteOutline className='text-lg mr-1' />Delete</span></button>
                                             </div>
-                                            <button className='px-2 py-1 bg-black text-white font-grot text-md w-full font-bold'><Link to='/blog'><span className='flex items-center justify-center'><FaRegEye className='text-lg mr-1' />View</span></Link></button>
+                                            <button className='px-2 py-1 bg-black text-white font-grot text-md w-full font-bold'><Link to={`/blog/${item.slug}`}><span className='flex items-center justify-center'><FaRegEye className='text-lg mr-1' />View</span></Link></button>
                                         </div>
 
                                     </motion.div>
-                                    <Card showTransition={false} />
+                                    <Card showTransition={false} content={item}/>
                                 </div>
                             ))}
                         </div>
