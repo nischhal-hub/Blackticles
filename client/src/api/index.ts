@@ -35,6 +35,7 @@ export const postBlog = async(blogData:FormData)=>{
 }
 
 export const editBlog = async(formData:FormData,editId:string)=>{
+    console.log(formData)
     try{
         const resp = await axios.put(`${url}/edit/${editId}`,formData,{
             headers:{

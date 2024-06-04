@@ -44,10 +44,10 @@ const Editblog = () => {
 
     useEffect(() => {
         if (data) {
-            setValue("title", data.blog.title)
-            setImage(`http://localhost:5002/${data.blog.image}`)
-            setValue("overview", data.blog.overview)
-            setEditId(data.blog._id)
+            setValue("title", data?.blog?.title)
+            setImage(`http://localhost:5002/${data?.blog?.image}`)
+            setValue("overview", data?.blog?.overview)
+            setEditId(data?.blog?._id)
         }
     }, [data])
     const { mutate, isPending, isSuccess } = useMutation(
