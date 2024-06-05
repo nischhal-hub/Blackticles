@@ -5,9 +5,17 @@ import List from '@editorjs/list'
 import RawTool from '@editorjs/raw'
 //import ImageTool from '@editorjs/image'
 import axios from 'axios'
+import { useGlobalContext } from '../hooks/useGlobalContext'
 
-const Editor = ({blockdata}:any) => {
-    console.log(blockdata)
+type TEditorProp = {
+    blockdata: string | undefined;
+}
+
+const Editor = ({ blockdata }: TEditorProp) => {
+    //const {setDescription} = useGlobalContext()
+    if (blockdata) {
+        var blockContent = JSON.parse(blockdata)
+    }
     const DEFAULT_INITIAL_DATA = {
         "time": new Date().getTime(),
         "blocks": [
@@ -28,11 +36,11 @@ const Editor = ({blockdata}:any) => {
                 ejInstance.current = editor
             },
             autofocus: true,
-            data:initData || DEFAULT_INITIAL_DATA,
+            data: initData || DEFAULT_INITIAL_DATA,
             onChange: async () => {
                 let content = await editor.saver.save()
-                console.log(content)
-                //setDescription(content)
+                let blogContent = JSON.stringify(content)
+                setDescription(blogContent)
             },
             tools: {
                 header: {
@@ -46,9 +54,9 @@ const Editor = ({blockdata}:any) => {
                     class: List,
                     inlineToolbar: true
                 },
-                raw:{
-                    class:RawTool,
-                    inlineToolbar:true
+                raw: {
+                    class: RawTool,
+                    inlineToolbar: true
                 },
                 // image:{
                 //     class:ImageTool,
@@ -78,19 +86,19 @@ const Editor = ({blockdata}:any) => {
         });
     }
 
-    
+
 
     useEffect(() => {
         if (ejInstance.current === null) {
-          initEditor(blockdata);
+            initEditor(blockContent);
         }
-    
+
         return () => {
-          ejInstance?.current?.destroy();
-          ejInstance.current = null;
+            ejInstance?.current?.destroy();
+            ejInstance.current = null;
         };
-      }, []);
-    
+    }, []);
+
 
     return (
         <div id='editorjs' className='bg-slate-100 border-[1px] border-slate-300 font-grot rounded-md px-6 py-4 font-urbanist'></div>

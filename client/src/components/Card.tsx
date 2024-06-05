@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
 import thumbnail from '../assets/Rectangle 12.png'
 import { cn } from '../utils/cn';
+import { TBlogContent } from '../type';
 //import { useGlobalContext } from '../hooks/useGlobalContext';
 
-
-type TProp = {
-    showTransition: boolean;
+type TCardProp = {
+    showTransition :boolean;
+    content: TBlogContent
 }
-const Card = (prop: TProp) => {
+const Card = ({showTransition, content}: TCardProp) => {
+    //console.log(content)
     //const {setCardLength,cardLength} = useGlobalContext()
     const [showEllipses, setShowEllipses] = useState(false);
     const paraRef = useRef<HTMLDivElement>(null)
     // const cardRef = useRef<HTMLDivElement>(null)
-
+    const date = new Date(content?.updatedAt || new Date()).toISOString().split('T')[0];
     useEffect(() => {
         if (paraRef.current) {
             const { scrollHeight, clientHeight } = paraRef.current
@@ -38,18 +40,18 @@ const Card = (prop: TProp) => {
                 'mx-auto',
                 'mt-6',
                 'hover:shadow-lg',
-                !prop.showTransition ? '' : 'hover:-translate-y-1 transition-transform'
+                !showTransition ? '' : 'hover:-translate-y-1 transition-transform'
             )}>
-                <div className='w-full h-52 overflow-hidden'>
-                    <img src={thumbnail} alt="blog picutre" className='w-full h-full object-cover' />
+                <div className='w-full h-52 overflow-hidden bg-slate-200'>
+                    <img src={`http://localhost:5002/${content?.image}`} alt="blog picutre" className='w-full h-full object-contain' />
                 </div>
                 <div className='h-20 overflow-hidden mb-2 relative' ref={paraRef}>
                     {showEllipses && <p className='absolute -bottom-1 right-1 font text-2xl'>....</p>}
-                    <p className='text-center mx-6 font-grot text-lg font-normal' >Granny gives everyone the finger, and other tips from OFFF Barcelona. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nisi, repudiandae?</p>
+                    <p className='text-center mx-6 font-grot text-lg font-normal' >{content?.title}</p>
                 </div>
                 <div className='border-t-[0.3px] border-slate-700 flex justify-between mx-2 font-light text-xs font-sourceSerif py-2'>
                     <p>@Blacktech</p>
-                    <p>2024/05/29</p>
+                    <p>{date}</p>
                 </div>
             </div>
         </>

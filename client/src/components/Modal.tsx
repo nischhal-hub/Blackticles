@@ -3,12 +3,37 @@ import React, { FC } from 'react'
 import ReactDOM from 'react-dom'
 import { useGlobalContext } from '../hooks/useGlobalContext';
 import { MdDeleteForever } from 'react-icons/md';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteBlog } from '../api';
+import { FaCross } from 'react-icons/fa';
 type TModalProp = {
     show: boolean;
     onCloseButtonClick: () => void;
 }
+type TDeleteId = {
+    deleteId :string;
+}
 const Modal: FC<TModalProp> = (prop) => {
-    const {toasterStat,setToasterStat} = useGlobalContext()
+    const queryClient = useQueryClient()
+    const {mutate,isPending} = useMutation({
+        mutationFn: ({deleteId}:TDeleteId)=>deleteBlog(deleteId)
+    })
+    const {setToasterStat,deleteId,setDeleteId} = useGlobalContext()
+    const handleDelete = ()=>{
+        mutate({deleteId},{
+            onSuccess:()=>{
+                setDeleteId('')
+                prop.onCloseButtonClick()
+                setToasterStat({show:true,type:'red-600',msg:'Item deleted successfully!',icon:<MdDeleteForever/>})
+                queryClient.invalidateQueries({ queryKey: ['blogs'] });
+            },
+            onError:()=>{
+                setDeleteId('')
+                setToasterStat({show:true,type:'red-600',msg:"Item Couldn't be Deleted. Try again.",icon:<FaCross/>})
+            }
+        })
+    }
+
     const variants = {
         open: { height: '100%', opacity: 1 },
         close: { height: 0, opacity: 0 }
@@ -29,7 +54,7 @@ const Modal: FC<TModalProp> = (prop) => {
                     Are you sure you want to delete this blog?
                 </div>
                 <div className='space-x-8 mt-4'>
-                    <button onClick={()=>{prop.onCloseButtonClick(); setToasterStat({show:true,type:'red-600',msg:'Item deleted successfully!',icon:<MdDeleteForever/>})}} className='px-2 py-1 bg-white text-red-600 font-grot text-sm'>Shwoosh!!</button>
+                    <button onClick={handleDelete} className='px-2 py-1 bg-white text-red-600 font-grot text-sm'>Shwoosh!!</button>
                     <button onClick={prop.onCloseButtonClick} className='px-2 py-1 bg-accent font-grot text-sm'>No</button>
                 </div>
             </div>

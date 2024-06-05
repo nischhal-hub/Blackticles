@@ -10,18 +10,22 @@ import { cn } from '../utils/cn';
 import { useQuery } from '@tanstack/react-query';
 import { fetchAll } from '../api';
 import { useGlobalContext } from '../hooks/useGlobalContext';
-
+import Loading from './Loading';
+import { TBlogContent } from '../type';
 type TDates = {
   startDate: Date;
   endDate: Date;
 }
 
+
+
 const Home = () => {
-  // const {data, isLoading} = useQuery({
-  //   queryFn: ()=>fetchAll(),
-  //   queryKey: ['blogs']
-  // })
-  const {cardLength} = useGlobalContext()
+  const {data, isLoading} = useQuery({
+    queryFn: ()=>fetchAll(),
+    queryKey: ['blogs']
+  })
+  console.log(data)
+  // const {cardLength} = useGlobalContext()
   const { register, handleSubmit, formState: { errors } } = useForm<TDates>()
   const [showFilter, setShowFilter] = useState(false)
   //const [showLoading, setShowLoading] = useState(true)
@@ -37,8 +41,10 @@ const Home = () => {
   const onSubmit: SubmitHandler<TDates> = (data) => {
     console.log(data);
   }
-
   //console.log(cardHolderRef.current?.clientHeight)
+  if(isLoading){
+    return <Loading />
+  }
   return (
     <>
       <motion.div 
@@ -52,10 +58,10 @@ const Home = () => {
       <div className='w-full mt-10 md:w-[60%] mx-auto'>
         <div className=' border-b-2 border-solid border-slate-900 border-spacing-7 pb-8'>
           <div className='w-full aspect-video' >
-            <img src={thumbnail} alt="picture" className='w-full' />
+            <img src={`http://localhost:5002/${data?.blogs?.[0]?.image}`} alt="picture" className='w-full' />
           </div>
-          <h1 className='font-playFair text-4xl font-bold text-center mx-4 mt-2'>A few words about this blog platform, Ghost, and how this site was made.</h1>
-          <p className='font-grot font-light text-lg text-center mx-6 mt-4'>Why Ghost (& Figma) instead of Medium, WordPress or other options?</p>
+          <h1 className='font-playFair text-4xl font-bold text-center mx-4 mt-2'>{data?.blogs?.[0]?.title}</h1>
+          <p className='font-grot font-light text-lg text-center mx-6 mt-4'>{data?.blogs?.[0]?.overview}</p>
         </div>
         {/* all articles */}
         <div className='mt-8 w-full mx-auto'>
@@ -87,8 +93,8 @@ const Home = () => {
               </form>
             </motion.div>
           </div>
-          <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 border-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
-            {Array.from({ length: 9 }).map((_, i) => (<Link key={i} to='/blog' ><Card showTransition={true}/></Link>))}
+          <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
+            {data?.blogs?.map((item:TBlogContent, i:number) => (<Link key={i} to={`/blog/${item.slug}`} ><Card showTransition={true} content={item}/></Link>))}
           </div>
         </div>
       </div >

@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react'
-import { cn } from '../utils/cn.tsx'
+import {cn} from '../utils/cn'
 import { FaArrowDown } from "react-icons/fa6";
 import { FaArrowUp } from 'react-icons/fa';
 
@@ -30,8 +30,8 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
         },
         paragraph: "font-playFair text-xl mt-4 tracking-normal md:text-lg",
         list: {
-            "ol": "list-decimal ml-5",
-            "ul": "list-disc ml-5",
+            "ol": "list-decimal ml-5 ",
+            "ul": "list-disc ml-5 ",
         }
 
     }
@@ -72,7 +72,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                         }
                         const List = list_data.style === "ordered" ? "ol" : "ul";
                         return <List key={item.id} className={cn(
-                            'ml-5',
+                            'ml-5 font-grot',
                             list_data.style === "ordered" ? "list-decimal" : "list-disc"
                         )}>
                             {list_data.items.map((item: string,i:number) => (
@@ -173,6 +173,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
     }, [])
 
     useEffect(() => {
+        console.log("i am running")
         if (containerRef.current) {
             const { scrollHeight, clientHeight } = containerRef.current;
             if (scrollHeight > clientHeight) {
@@ -181,7 +182,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                 setShowReadMore(false);
             }
         }
-    }, [])
+    }, [data])
     return (
         <>
             <div ref={containerRef} className={cn(
@@ -193,7 +194,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
             )}>
                 {dataBlocks(styles, data)}
             </div>
-            {showReadMore && <div className='text-center cursor-pointer text-accent font-semibold' onClick={()=>setShowMore(v=>!v)}>{showMore?(<p><FaArrowUp/>Read Less</p>):(<p><FaArrowDown/>Read More</p>)}</div>}
+            {showReadMore && <div className='text-center cursor-pointer text-accent font-semibold' onClick={()=>setShowMore(v=>!v)}>{showMore?(<p className='flex items-center justify-center'><FaArrowUp className='mr-2'/>Read Less</p>):(<p className='flex items-center justify-center'><FaArrowDown className='mr-2'/>Read More</p>)}</div>}
         </>
     )
 }
