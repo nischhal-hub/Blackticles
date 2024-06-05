@@ -8,14 +8,12 @@ import axios from 'axios'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 
 type TEditorProp = {
-    blockdata: string | undefined;
+    blockdata: any;
 }
 
 const Editor = ({ blockdata }: TEditorProp) => {
+    console.log(blockdata)
     const {setDescription} = useGlobalContext()
-    if (blockdata) {
-        var blockContent = JSON.parse(blockdata)
-    }
     const DEFAULT_INITIAL_DATA = {
         "time": new Date().getTime(),
         "blocks": [
@@ -90,7 +88,15 @@ const Editor = ({ blockdata }: TEditorProp) => {
 
     useEffect(() => {
         if (ejInstance.current === null) {
-            initEditor(blockContent);
+            let parsedData;
+            try {
+                parsedData = blockdata ? JSON.parse(blockdata) : undefined;
+                console.log(parsedData)
+            } catch (e) {
+                console.error("Error parsing blockdata:", e);
+                parsedData = undefined;
+            }
+            initEditor(parsedData);
         }
 
         return () => {
