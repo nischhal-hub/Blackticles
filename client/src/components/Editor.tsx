@@ -12,7 +12,7 @@ type TEditorProp = {
 }
 
 const Editor = ({ blockdata }: TEditorProp) => {
-    //const {setDescription} = useGlobalContext()
+    const {setDescription} = useGlobalContext()
     if (blockdata) {
         var blockContent = JSON.parse(blockdata)
     }
@@ -23,7 +23,7 @@ const Editor = ({ blockdata }: TEditorProp) => {
                 "type": "header",
                 "data": {
                     "text": "Let's start a awesome blog.🥳",
-                    "level": 3
+                    "level": 1
                 }
             },
         ]

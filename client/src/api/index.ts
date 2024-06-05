@@ -62,3 +62,15 @@ export const deleteBlog = async(id:string)=>{
         throw error
     }
 }
+
+export const search = async(title:string|undefined)=>{
+    console.log(title)
+    try{
+        const resp = await axios(`${url}/search?title=${title}`)
+        console.log(resp.data)
+        return resp.data
+    }catch(error){
+        console.log(`Error Fetching single blog data: ${error}`)
+        throw error
+    }
+}
