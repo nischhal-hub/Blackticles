@@ -46,7 +46,7 @@ const Manage = () => {
                         <h3 className='text-center font-playFair text-3xl font-bold mt-6'>Manage articles</h3>
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2'>
                             <Modal show={isShowing} onCloseButtonClick={toggle} />
-                            {data?.blogs?.map((item:TBlogContent, i:number) => (
+                            {data?.blogs?.length >0 ? data?.blogs?.map((item:TBlogContent, i:number) => (
                                 <div key={i} className='relative' onClick={() => (setShowOverlay((prev) => {
                                     if (prev.index === i && prev.show === true)
                                         return { index: prev.index, show: false }
@@ -76,7 +76,10 @@ const Manage = () => {
                                     </motion.div>
                                     <Card showTransition={false} content={item}/>
                                 </div>
-                            ))}
+                            )):(<div className='w-[95%] md:w-[60%]'>
+                                <p className='text-center text-xl font-grot mt-10 font-bold'>No blogs to show.🥺</p>
+                                <p className='text-center font-grot'>Don't worry create some Awesometicles here👉 <span className='text-3xl'><Link to='/create'>😎</Link></span> 👈</p>
+                            </div>)}
                         </div>
                     </div>
                 </div>
