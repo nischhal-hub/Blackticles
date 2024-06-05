@@ -72,7 +72,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                         }
                         const List = list_data.style === "ordered" ? "ol" : "ul";
                         return <List key={item.id} className={cn(
-                            'ml-5 font-grot',
+                            'ml-5 font-playFair text-lg tracking-normal',
                             list_data.style === "ordered" ? "list-decimal" : "list-disc"
                         )}>
                             {list_data.items.map((item: string,i:number) => (
@@ -190,7 +190,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                 'border-b-2',
                 'border-borderColor',
                 showMore ? 'max-h-auto' : 'max-h-96',
-                "overflow-hidden",
+                "overflow-hidden pb-4",
             )}>
                 {dataBlocks(styles, data)}
             </div>
