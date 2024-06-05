@@ -28,7 +28,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
             "5": "text-sm font-grot font-bold mt-4",
             "6": "text-md font-grot font-bold mt-4",
         },
-        paragraph: "font-playFair text-xl mt-4 tracking-normal md:text-lg",
+        paragraph: "font-playFair mt-4 text-xl tracking-normal md:text-lg",
         list: {
             "ol": "list-decimal ml-5 ",
             "ul": "list-disc ml-5 ",
@@ -72,7 +72,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                         }
                         const List = list_data.style === "ordered" ? "ol" : "ul";
                         return <List key={item.id} className={cn(
-                            'ml-5 font-playFair text-lg tracking-normal',
+                            'ml-5 font-playFair text-xl tracking-normal md:text-lg',
                             list_data.style === "ordered" ? "list-decimal" : "list-disc"
                         )}>
                             {list_data.items.map((item: string,i:number) => (
