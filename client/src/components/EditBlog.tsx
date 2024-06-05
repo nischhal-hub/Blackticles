@@ -65,6 +65,9 @@ const Editblog = () => {
         formData.append("image", data.image[0])
         mutate({ formData, editId  }, {
             onSuccess: () => {
+                setValue("title", "")
+                setImage("")
+                setValue("overview", "")
                 setToasterStat({ show: true, type: "accent", msg: "Blog edited succesfully.", icon: <TiTick /> })
                 queryClient.invalidateQueries({
                     queryKey: ['blogs']

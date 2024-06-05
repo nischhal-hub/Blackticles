@@ -26,7 +26,7 @@ type TPostData = {
 
 const Postblog = () => {
     const {description} = useGlobalContext()
-    const { register, handleSubmit, formState: { errors } } = useForm<TFormFields>()
+    const { register, handleSubmit, formState: { errors },setValue } = useForm<TFormFields>()
     const queryClient = useQueryClient()
     const {setToasterStat}=useGlobalContext()
     const [image, setImage] = useState<string>("")
@@ -45,6 +45,9 @@ const Postblog = () => {
         mutate({ formData }, {
             onSuccess: () => {
                 setToasterStat({show:true,type:"accent",msg:"Blog posted succesfully.",icon:<TiTick/>})
+                setValue("title", "")
+                setImage("")
+                setValue("overview", "")
                 queryClient.invalidateQueries({
                     queryKey: ['blogs']
                 })
