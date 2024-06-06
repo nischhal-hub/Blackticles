@@ -74,3 +74,14 @@ export const search = async(title:string|undefined)=>{
         throw error
     }
 }
+
+export const filter = async(startDate:string, endDate:string)=>{
+    try{
+        const resp = await axios.post(`${url}/filter?startDate=${startDate}&endDate=${endDate}`)
+        console.log(resp)
+        return resp.data
+    }catch(error){
+        console.log(`Error Fetching blogs:${error}`)
+        throw error
+    }
+}
