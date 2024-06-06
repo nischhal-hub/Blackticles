@@ -8,11 +8,10 @@ import axios from 'axios'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 
 type TEditorProp = {
-    blockdata: any;
+    blockdata: string | undefined;
 }
 
 const Editor = ({ blockdata }: TEditorProp) => {
-    console.log(blockdata)
     const {setDescription} = useGlobalContext()
     const DEFAULT_INITIAL_DATA = {
         "time": new Date().getTime(),
