@@ -74,7 +74,7 @@ const Navbar = () => {
         </motion.div>
         {/* mobile search */}
         <div className='md:hidden text-2xl flex space-x-4 relative'>
-          <CiSearch onClick={() => navigate('/search')} className='mr-8' />
+          <CiSearch onClick={() => navigate('/search')} className='mr-5' />
           <motion.div
             animate={isSidebarOpen ? "open" : "closed"}
             variants={variantButton}
