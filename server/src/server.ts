@@ -4,6 +4,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import blogRoutes from "./routes/blogRoutes.js";
 import { connectDB } from "./data/database.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./docs/swagger/swagger.js";
 
 config({
   path: "./.env",
@@ -14,8 +16,8 @@ const app = express();
 //using middlewares
 app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -26,11 +28,6 @@ app.use(cors(corsOptions));
 
 // using Routes
 app.use("/api/blogs", blogRoutes);
-
-//for initial testing
-app.get("/", (req, res) => {
-  res.send("Hey server working good on 5001");
-});
 
 await connectDB();
 

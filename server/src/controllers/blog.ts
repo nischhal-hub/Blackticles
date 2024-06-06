@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import BlogPost from "../models/blogPosts.js";
 import { singleUpload } from "../middlewares/multer.js";
 import slugify from "slugify";
+import BlogImage from "../models/blogImages.js";
 
 export const getAllBlogs = async (
   req: Request,
@@ -213,7 +214,26 @@ export const addSingleImage = async (req: Request, res: Response) => {
   }
 };
 
-//For Upload Testing
-export const uploadImage = async (req: Request, res: Response) => {
-  res.json(req.file);
+export const uploadImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const image = req.file;
+    if (!image) {
+      return res.status(404).json({
+        success: false,
+        message: "Image not Found",
+      });
+    }
+    const singleImage = await BlogImage.create({ image: image.path });
+    res.status(201).json({
+      success: true,
+      message: "Single Image Added Successfully",
+      singleImage,
+    });
+  } catch (err) {
+    next(err);
+  }
 };

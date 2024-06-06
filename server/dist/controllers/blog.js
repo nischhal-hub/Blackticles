@@ -1,5 +1,6 @@
 import BlogPost from "../models/blogPosts.js";
 import slugify from "slugify";
+import BlogImage from "../models/blogImages.js";
 export const getAllBlogs = async (req, res, next) => {
     try {
         const blogs = await BlogPost.find({});
@@ -177,7 +178,23 @@ export const addSingleImage = async (req, res) => {
         });
     }
 };
-//For Upload Testing
-export const uploadImage = async (req, res) => {
-    res.json(req.file);
+export const uploadImage = async (req, res, next) => {
+    try {
+        const image = req.file;
+        if (!image) {
+            return res.status(404).json({
+                success: false,
+                message: "Image not Found",
+            });
+        }
+        const singleImage = await BlogImage.create({ image: image.path });
+        res.status(201).json({
+            success: true,
+            message: "Single Image Added Successfully",
+            singleImage,
+        });
+    }
+    catch (err) {
+        next(err);
+    }
 };

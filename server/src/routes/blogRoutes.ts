@@ -7,6 +7,7 @@ import {
   filterBlog,
   getSingleBlog,
   searchByTitle,
+  uploadImage,
 } from "../controllers/blog.js";
 import { singleUpload } from "../middlewares/multer.js";
 
@@ -25,5 +26,7 @@ router.delete("/delete/:id", deleteBlogs);
 router.post("/filter", filterBlog);
 
 router.get("/search", searchByTitle);
+
+router.post("/image", singleUpload, uploadImage);
 
 export default router;

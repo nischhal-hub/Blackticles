@@ -1,5 +1,5 @@
 import express from "express";
-import { addBlogs, deleteBlogs, editBlogs, getAllBlogs, filterBlog, getSingleBlog, searchByTitle, } from "../controllers/blog.js";
+import { addBlogs, deleteBlogs, editBlogs, getAllBlogs, filterBlog, getSingleBlog, searchByTitle, uploadImage, } from "../controllers/blog.js";
 import { singleUpload } from "../middlewares/multer.js";
 const router = express.Router();
 router.get("/all", getAllBlogs);
@@ -9,4 +9,5 @@ router.put("/edit/:id", singleUpload, editBlogs);
 router.delete("/delete/:id", deleteBlogs);
 router.post("/filter", filterBlog);
 router.get("/search", searchByTitle);
+router.post("/image", singleUpload, uploadImage);
 export default router;
