@@ -4,19 +4,15 @@ import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { motion } from 'framer-motion'
-import { cn } from '../utils/cn';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { fetchAll, filter } from '../api';
-import { useGlobalContext } from '../hooks/useGlobalContext';
 import Loading from './Loading';
 import { TBlogContent } from '../type';
 import { IoIosArrowBack } from 'react-icons/io';
-type TDates = {
-  startDate: Date;
-  endDate: Date;
-}
+import {BiFilterAlt } from 'react-icons/bi';
 
-type TFilterParams = {
+
+type TDates = {
   startDate: string;
   endDate: string;
 }
@@ -28,11 +24,11 @@ const Home = () => {
     queryKey: ['blogs']
   })
   const filterData = useMutation({
-    mutationFn: ({ startDate, endDate }: TFilterParams) => filter(startDate, endDate)
+    mutationFn: ({ startDate, endDate }: TDates) => filter(startDate, endDate)
   })
   console.log(filterData.data)
   // const {cardLength} = useGlobalContext()
-  const { register, handleSubmit, formState: { errors } } = useForm<TFilterParams>()
+  const { register, handleSubmit, formState: { errors } } = useForm<TDates>()
   const [showFilter, setShowFilter] = useState(false)
   const [isFiltering, setIsFiltering] = useState(false)
   //const [showLoading, setShowLoading] = useState(true)
@@ -45,7 +41,7 @@ const Home = () => {
       opacity: 0, y: '-200%', height: 0
     }
   }
-  const onSubmit: SubmitHandler<TFilterParams> = ({ startDate, endDate }) => {
+  const onSubmit: SubmitHandler<TDates> = ({ startDate, endDate }) => {
     setIsFiltering(true);
     filterData.mutate({ startDate, endDate })
   }
@@ -91,22 +87,23 @@ const Home = () => {
                   <div className='w-full mt-2 sm:w-[30%] sm:flex sm:items-center sm:space-x-4'  >
                     <div className='flex flex-col '>
                       <p className='font-grot font-normal text-sm'>From</p>
-                      <input type="date" {...register("startDate")} aria-placeholder='DD/MM/YYYY' className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
-                      {/* {errors.title && <span className='text-sm text-error font-sourceSerif mt-2'>{errors.title.message}</span>} */}
+                      <input type="date" {...register("startDate",{required:'Fill the date.🥺'})} aria-placeholder='DD/MM/YYYY' className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                      {errors.startDate && <span className='text-sm text-red-600 font-grot mt-1 ml-1'>{errors.startDate.message}</span>}
                     </div>
                     <div className='flex flex-col w-full mt-1 sm:mt-0'>
                       <p className='font-grot font-normal text-sm'>To</p>
-                      <input type="date" {...register("endDate")} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
-                      {/* {errors.title && <span className='text-sm text-error font-sourceSerif mt-2'>{errors.title.message}</span>} */}
+                      <input type="date" {...register("endDate",{required:'Fill the date.🥺'})} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                      {errors.endDate && <span className='text-sm text-red-600 font-grot mt-1 ml-1'>{errors.endDate.message}</span>}
                     </div>
                   </div>
-                  <button className='px-4 py-1 bg-accent font-grot text-sm mt-4 font-bold'>Filter</button>
+                  <button className='px-4 py-1 bg-accent font-grot text-sm mt-4 font-bold flex items-center'><span className='mr-1'><BiFilterAlt/></span>Filter</button>
                 </form>
               </motion.div>
             </div>
             {isFiltering ? (
               <>
                 <div className='ml-4'><button className='flex items-center font-grot mt-2 text-sm font-bold py-1 pl-2 pr-4  bg-accent' onClick={() => {setIsFiltering(false); setShowFilter(false)}}><IoIosArrowBack />Back</button></div>
+                {filterData.isPending && <Loading />}
                 <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
                   {(filterData?.data?.length===0)?<div><p className='text-center mt-4 font-grot text-xl'>No data to show.🥺</p><p className='text-center mt-2 font-grot text-xl'> Please select another date.</p></div> : filterData?.data?.map((item: TBlogContent, i: number) => (<Link key={i} to={`/blog/${item.slug}`} ><Card showTransition={true} content={item} /></Link>))}
                 </div>
