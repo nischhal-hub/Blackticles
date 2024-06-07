@@ -66,7 +66,7 @@ const Postblog = () => {
     return (
         <>
             <div className='min-h-screen relative'>
-                <div className='w-full md:w-[60%] mx-auto h-20 bg-black text-white flex items-center justify-center relative overflow-hidden'>
+                <div className='w-full mx-auto h-20 bg-black text-white flex items-center justify-center relative overflow-hidden'>
                     <img src={arrow} alt="arrow" className='w-12 absolute -top-5 left-0 origin-center rotate-45' />
                     <img src={arrow} alt="arrow" className='w-12 absolute -bottom-3 right-0 origin-center -rotate-45' />
                     <img src={arrow2} alt="arrow" className='w-24 absolute -bottom-12 right-2 origin-center rotate-270' />

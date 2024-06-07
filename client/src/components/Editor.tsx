@@ -63,12 +63,19 @@ const Editor = ({ blockdata }: TEditorProp) => {
                                 const formData = new FormData();
                                 formData.append("image",image);
                                 const resp = await axios.post(
-                                    `http://localhost:5002/api/blogs/singleimage`, 
+                                    `http://localhost:5003/api/blogs/image`, 
                                     formData
                                 );
-                                console.log(resp.data.data)
-                                if(resp.data.data.success === 1){
-                                    return resp.data.data;
+                                console.log(resp.data)
+                                if(resp.data.success === 1){
+                                    const response = {
+                                        "success": resp.data.success,
+                                        "file":{
+                                            "url":resp.data.singleImage.image
+                                        }
+                                    }
+                                    console.log(response)
+                                    return response
                                 }
                             }
                         }

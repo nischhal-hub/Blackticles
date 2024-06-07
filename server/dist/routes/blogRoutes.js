@@ -9,7 +9,7 @@ router.put("/:id", singleUpload, editBlog);
 router.delete("/:id", deleteBlog);
 router.get("/filter", filterBlog);
 router.get("/search", searchByTitle);
-router.get("/:slug", getSingleBlog);
 router.get("/getImage", getSingleImage);
 router.post("/image", singleUpload, uploadImage);
+router.get("/:slug", getSingleBlog);
 export default router;

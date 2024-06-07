@@ -1,8 +1,8 @@
 import axios from "axios";
-const url = "http://localhost:5002/api/blogs";
+const url = "http://localhost:5003/api/blogs";
 export const fetchAll = async () => {
   try {
-    const resp = await axios(`${url}/all`);
+    const resp = await axios(`${url}/`);
     return resp.data;
   } catch (error) {
     console.log(`Error Fetching Data: ${error}`);
@@ -12,7 +12,7 @@ export const fetchAll = async () => {
 
 export const fetchSingle = async (title: string | undefined) => {
   try {
-    const resp = await axios(`${url}/single/${title}`);
+    const resp = await axios(`${url}/${title}`);
     return resp.data;
   } catch (error) {
     console.log(`Error Fetching single blog data: ${error}`);
@@ -22,7 +22,7 @@ export const fetchSingle = async (title: string | undefined) => {
 
 export const postBlog = async (blogData: FormData) => {
   try {
-    const resp = await axios.post(`${url}/new`, blogData, {
+    const resp = await axios.post(`${url}/`, blogData, {
       headers: {
         "Content-type": "multipart/form-data",
       },
@@ -37,7 +37,7 @@ export const postBlog = async (blogData: FormData) => {
 export const editBlog = async (formData: FormData, editId: string) => {
   console.log(formData);
   try {
-    const resp = await axios.put(`${url}/edit/${editId}`, formData, {
+    const resp = await axios.put(`${url}/${editId}`, formData, {
       headers: {
         "Content-type": "multipart/form-data",
       },
@@ -51,7 +51,7 @@ export const editBlog = async (formData: FormData, editId: string) => {
 
 export const deleteBlog = async (id: string) => {
   try {
-    const resp = await axios.delete(`${url}/delete/${id}`, {
+    const resp = await axios.delete(`${url}/${id}`, {
       headers: {
         "Content-type": "application/json",
       },
@@ -77,7 +77,7 @@ export const search = async (title: string | undefined) => {
 
 export const filter = async (startDate: string, endDate: string) => {
   try {
-    const resp = await axios.post(
+    const resp = await axios(
       `${url}/filter?startDate=${startDate}&endDate=${endDate}`
     );
     console.log(resp);

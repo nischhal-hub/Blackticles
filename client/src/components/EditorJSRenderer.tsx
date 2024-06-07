@@ -148,7 +148,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                                     "rounded-md",
                                 )
                             }>
-                                <img src={image_data.file.url} alt="image"
+                                <img src={`http://localhost:5003/${image_data.file.url}`} alt="image"
                                     className={cn(
                                         'w-[150%]',
                                         'm-auto',
@@ -176,6 +176,8 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
         console.log("i am running")
         if (containerRef.current) {
             const { scrollHeight, clientHeight } = containerRef.current;
+            console.log(scrollHeight)
+            console.log(clientHeight)
             if (scrollHeight > clientHeight) {
                 setShowReadMore(true);
             } else {
@@ -189,7 +191,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                 'my-2',
                 'border-b-2',
                 'border-borderColor',
-                showMore ? 'max-h-auto' : 'max-h-96',
+                showMore ? 'max-h-auto' : 'max-h-[100vh]',
                 "overflow-hidden pb-4",
             )}>
                 {dataBlocks(styles, data)}
