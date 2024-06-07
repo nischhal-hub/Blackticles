@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import arrow from '../assets/arrow.svg'
 import arrow2 from '../assets/Black Green Futuristic Technology Company Logo (2).png'
 import { BiSolidImageAdd } from 'react-icons/bi'
@@ -35,7 +35,7 @@ const Editblog = () => {
     const { setToasterStat } = useGlobalContext()
     const [image, setImage] = useState<string>("")
     const [editId, setEditId] = useState('');
-    const { data, isLoading, isFetching } = useQuery({
+    const { data, isFetching } = useQuery({
         queryFn: () => fetchSingle(query),
         queryKey: ['blogs']
     })
@@ -48,7 +48,7 @@ const Editblog = () => {
             setEditId(data?.blog?._id)
         }
     }, [data])
-    const { mutate, isPending } = useMutation(
+    const { mutate } = useMutation(
         {
             mutationFn: ({ formData, editId }: TEditData) => editBlog(formData, editId)
         }
@@ -171,7 +171,7 @@ const Editblog = () => {
                                     </div>
                                     <div className='flex justify-center items-center'>
     
-                                        <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg' >Submit</button>
+                                        <button className='px-6 py-2 bg-accent rounded-3xl font-grot mt-6 font-bold text-lg' >Edit</button>
                                     </div>
                                 </form>
                             </div>

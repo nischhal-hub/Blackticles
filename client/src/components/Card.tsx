@@ -1,19 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
-import thumbnail from '../assets/Rectangle 12.png'
+import { useEffect, useRef, useState } from 'react'
 import { cn } from '../utils/cn';
 import { TBlogContent } from '../type';
-//import { useGlobalContext } from '../hooks/useGlobalContext';
 
 type TCardProp = {
     showTransition :boolean;
     content: TBlogContent
 }
 const Card = ({showTransition, content}: TCardProp) => {
-    //console.log(content)
-    //const {setCardLength,cardLength} = useGlobalContext()
     const [showEllipses, setShowEllipses] = useState(false);
     const paraRef = useRef<HTMLDivElement>(null)
-    // const cardRef = useRef<HTMLDivElement>(null)
     const date = new Date(content?.updatedAt || new Date()).toISOString().split('T')[0];
     useEffect(() => {
         if (paraRef.current) {
@@ -23,16 +18,6 @@ const Card = ({showTransition, content}: TCardProp) => {
             }
         }
     }, [])
-    // const getListSize = () => {
-    //     if(cardRef.current){
-    //     const newHeight = cardRef.current.clientWidth;
-    //     setCardLength(newHeight*3.5);
-    // }
-    // };
-
-    // useEffect(() => {
-    //     window.addEventListener("resize", getListSize);
-    //   }, []);
     return (
         <>
             <div className={cn(

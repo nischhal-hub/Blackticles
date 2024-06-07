@@ -3,7 +3,7 @@ import EditorJS from '@editorjs/editorjs'
 import Header from '@editorjs/header'
 import List from '@editorjs/list'
 import RawTool from '@editorjs/raw'
-//import ImageTool from '@editorjs/image'
+import ImageTool from '@editorjs/image'
 import axios from 'axios'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 
@@ -55,30 +55,25 @@ const Editor = ({ blockdata }: TEditorProp) => {
                     class: RawTool,
                     inlineToolbar: true
                 },
-                // image:{
-                //     class:ImageTool,
-                //     config:{
-                //         uploader:{
-                //             async uploadByFile(image:any){
-                //                 const formData = new FormData();
-                //                 formData.append("image",image);
-                //                 const resp = await axios.post(
-                //                     `http://192.168.1.227:5000/api/blog-image`, 
-                //                     formData,
-                //                     {
-                //                         headers: {
-                //                             'Authorization': `c05a13fc-2e9a-4dbb-b31e-a34f7b7afe5d`
-                //                         }
-                //                     }
-                //                 );
-                //                 console.log(resp.data.data)
-                //                 if(resp.data.data.success === 1){
-                //                     return resp.data.data;
-                //                 }
-                //             }
-                //         }
-                //     }
-                // }
+                image:{
+                    class:ImageTool,
+                    config:{
+                        uploader:{
+                            async uploadByFile(image:any){
+                                const formData = new FormData();
+                                formData.append("image",image);
+                                const resp = await axios.post(
+                                    `http://localhost:5002/api/blogs/singleimage`, 
+                                    formData
+                                );
+                                console.log(resp.data.data)
+                                if(resp.data.data.success === 1){
+                                    return resp.data.data;
+                                }
+                            }
+                        }
+                    }
+                }
             },
         });
     }
