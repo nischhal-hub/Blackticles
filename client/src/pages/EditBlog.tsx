@@ -4,15 +4,15 @@ import arrow2 from '../assets/Black Green Futuristic Technology Company Logo (2)
 import { BiSolidImageAdd } from 'react-icons/bi'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { FaCloudUploadAlt } from "react-icons/fa";
-import Back from './Back'
-import Editor from './Editor'
+import Back from '../components/Back'
+import Editor from '../components/Editor'
 import { motion } from 'framer-motion'
-import Loading from './Loading'
+import Loading from '../components/Loading'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { editBlog, fetchSingle } from '../api'
 import { useParams } from 'react-router-dom'
-import Toaster from './Toaster'
+import Toaster from '../components/Toaster'
 import { TiTick } from 'react-icons/ti'
 
 
