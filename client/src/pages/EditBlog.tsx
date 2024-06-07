@@ -123,7 +123,7 @@ const Editblog = () => {
     
                                                 }
                                                 )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
-                                                {errors.title && <span className='text-sm text-error font-sourceSerif mt-2'>{errors.title.message}</span>}
+                                                {errors.title && <span className='text-sm text-red-600 font-grot mt-2'>{errors.title.message}</span>}
                                             </div>
                                             <div className='flex flex-col mt-3 w-full'>
                                                 <p className='font-grot font-normal text-sm text-textSecondary-100 my-1'>Overview</p>
@@ -131,7 +131,7 @@ const Editblog = () => {
                                                     required: "Enter the overview."
                                                 }
                                                 )} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm' placeholder='Short description for your blog.' />
-                                                {errors.overview && (<span className='text-sm text-error font-grot mt-2'>{errors.overview.message}</span>)}
+                                                {errors.overview && (<span className='text-sm text-red-600 font-grot mt-2'>{errors.overview.message}</span>)}
     
                                             </div>
                                         </div>
@@ -149,10 +149,13 @@ const Editblog = () => {
                                                 <img src={image} className='object-contain' />
                                                 <div className='w-[0.1px] opacity-0 overflow-hidden'>
                                                     <input type="file" id='file' {...register('image', {
+                                                        required: "Upload image",
                                                         onChange: (e) => handleChange(e),
                                                     }
                                                     )} />
                                                 </div>
+                                                {errors.image && (<span className='text-sm text-red-600 font-grot mt-2'>{errors.image.message}</span>)}
+
                                             </div>
                                         </div>
                                     </div>
