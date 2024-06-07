@@ -9,3 +9,15 @@ export type TLinks = {
 export type TChildrenProp = {
     children ?: ReactNode;
 }
+
+export type TBlogContent = {
+    _id?: string;
+    title?: string;
+    overview?: string;
+    description?: string;
+    image?: string;
+    slug?: string;
+    createdAt?: Date ;
+    updatedAt?: Date ;
+    __v?: number;
+}

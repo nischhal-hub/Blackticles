@@ -18,12 +18,12 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route path='/' element={<SharedLayout />}>
             <Route path='/' element={<Home />} />
-            <Route path='/blog' element={<SingleBlog />} />
+            <Route path='/blog/:query' element={<SingleBlog />} />
             <Route path='/create' element={<Postblog />} />
             <Route path='/search/:query' element={<Search />} />
             <Route path='/search' element={<Search />} />
             <Route path='/manage' element={<Manage />} />
-            <Route path='/edit' element={<Editblog />} />
+            <Route path='/edit/:query' element={<Editblog />} />
             <Route path='*' element={<Error />}></Route>
           </Route>
         </Routes>
