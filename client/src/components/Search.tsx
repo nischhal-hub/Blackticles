@@ -26,7 +26,7 @@ const Search = () => {
             const fetchSearchResult = async () => {
                 setLoading(true);
                 try {
-                    const resp = await axios(`http://localhost:5002/api/blogs/search?title=${searchQuery}`)
+                    const resp = await axios(`http://localhost:5003/api/blogs/search?title=${searchQuery}`)
                     setLoading(false)
                     setSearchData(resp.data);
                     console.log(resp.data)

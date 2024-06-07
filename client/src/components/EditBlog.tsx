@@ -43,7 +43,8 @@ const Editblog = () => {
     useEffect(() => {
         if (data) {
             setValue("title", data?.blog?.title)
-            setImage(`http://localhost:5002/${data?.blog?.image}`)
+            setValue("image", data?.blog?.image)
+            setImage(`http://localhost:5003/${data?.blog?.image}`)
             setValue("overview", data?.blog?.overview)
             setEditId(data?.blog?._id)
         }
@@ -96,7 +97,7 @@ const Editblog = () => {
             return (
                 <>
                     <div className='min-h-screen relative'>
-                        <div className='w-full md:w-[60%] mx-auto h-20 bg-black text-white flex items-center justify-center relative overflow-hidden'>
+                        <div className='w-full mx-auto h-20 bg-black text-white flex items-center justify-center relative overflow-hidden'>
                             <img src={arrow} alt="arrow" className='w-12 absolute -top-5 left-0 origin-center rotate-45' />
                             <img src={arrow} alt="arrow" className='w-12 absolute -bottom-3 right-0 origin-center -rotate-45' />
                             <img src={arrow2} alt="arrow" className='w-24 absolute -bottom-12 right-2 origin-center rotate-270' />
@@ -148,7 +149,6 @@ const Editblog = () => {
                                                 <img src={image} className='object-contain' />
                                                 <div className='w-[0.1px] opacity-0 overflow-hidden'>
                                                     <input type="file" id='file' {...register('image', {
-                                                        required: "Image file required.",
                                                         onChange: (e) => handleChange(e),
                                                     }
                                                     )} />

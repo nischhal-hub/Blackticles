@@ -34,8 +34,8 @@ const SingleBlog = () => {
           <h1 className="font-playFair text-3xl font-bold text-center mx-4">{data?.blog?.title}</h1>
           <p className='font-grot font-light text-lg text-center mx-6 mt-2'>{data?.blog?.overview}</p>
         </div>
-        <div className='w-full mt-6'>
-          <img src={`http://localhost:5002/${data?.blog?.image}`} alt="thumbnail" className='w-full' />
+        <div className='w-full 2xl:w-[60%] mx-auto mt-6'>
+          <img src={`http://localhost:5003/${data?.blog?.image}`} alt="thumbnail" className='w-full' />
         </div>
         <div className='w-[90%] md:w-[60%] mt-6 border-t-2 border-black mx-auto'>
 

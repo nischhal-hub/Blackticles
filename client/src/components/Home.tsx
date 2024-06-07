@@ -9,7 +9,7 @@ import { fetchAll, filter } from '../api';
 import Loading from './Loading';
 import { TBlogContent } from '../type';
 import { IoIosArrowBack } from 'react-icons/io';
-import {BiFilterAlt } from 'react-icons/bi';
+import { BiFilterAlt } from 'react-icons/bi';
 
 
 type TDates = {
@@ -19,19 +19,12 @@ type TDates = {
 
 
 const Home = () => {
-  const { data, isLoading } = useQuery({
-    queryFn: () => fetchAll(),
-    queryKey: ['blogs']
-  })
-  const filterData = useMutation({
-    mutationFn: ({ startDate, endDate }: TDates) => filter(startDate, endDate)
-  })
-  console.log(filterData.data)
   // const {cardLength} = useGlobalContext()
+  const [dates, setDates] = useState({ startDate: '', endDate: '' })
   const { register, handleSubmit, formState: { errors } } = useForm<TDates>()
   const [showFilter, setShowFilter] = useState(false)
   const [isFiltering, setIsFiltering] = useState(false)
-  //const [showLoading, setShowLoading] = useState(true)
+  const [buttonClicked, setbuttonClicked] = useState(false)
   const cardHolderRef = useRef<HTMLDivElement>(null)
   const variant = {
     open: {
@@ -41,9 +34,22 @@ const Home = () => {
       opacity: 0, y: '-200%', height: 0
     }
   }
+  const { data, isLoading } = useQuery({
+    queryFn: () => fetchAll(),
+    queryKey: ['blogs']
+  })
+  const filterData = useQuery({
+    queryFn: () => filter(dates.startDate, dates.endDate),
+    queryKey: ['filtered'],
+    enabled: buttonClicked
+  }
+  )
   const onSubmit: SubmitHandler<TDates> = ({ startDate, endDate }) => {
+    console.log(startDate, endDate)
     setIsFiltering(true);
-    filterData.mutate({ startDate, endDate })
+    setDates({ startDate: startDate, endDate: endDate })
+    setbuttonClicked(true)
+    filterData.refetch()
   }
   console.log(filterData.data)
   if (isLoading) {
@@ -63,7 +69,7 @@ const Home = () => {
           {/* Hero blog */}
           <div className=' border-b-2 border-solid border-slate-900 border-spacing-7 pb-8'>
             <div className='w-full aspect-video' >
-              <img src={`http://localhost:5002/${data?.blogs?.[0]?.image}`} alt="picture" className='w-full' />
+              <img src={`http://localhost:5003/${data?.blogs?.[0]?.image}`} alt="picture" className='w-full' />
             </div>
             <Link to={`/blog/${data?.blogs?.[0]?.slug}`}>
               <h1 className='font-playFair text-4xl font-bold text-center mx-4 mt-2'>{data?.blogs?.[0]?.title}</h1>
@@ -87,25 +93,25 @@ const Home = () => {
                   <div className='w-full mt-2 sm:w-[30%] sm:flex sm:items-center sm:space-x-4'  >
                     <div className='flex flex-col '>
                       <p className='font-grot font-normal text-sm'>From</p>
-                      <input type="date" {...register("startDate",{required:'Fill the date.🥺'})} aria-placeholder='DD/MM/YYYY' className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                      <input type="date" {...register("startDate", { required: 'Fill the date.🥺' })} aria-placeholder='DD/MM/YYYY' className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
                       {errors.startDate && <span className='text-sm text-red-600 font-grot mt-1 ml-1'>{errors.startDate.message}</span>}
                     </div>
                     <div className='flex flex-col w-full mt-1 sm:mt-0'>
                       <p className='font-grot font-normal text-sm'>To</p>
-                      <input type="date" {...register("endDate",{required:'Fill the date.🥺'})} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                      <input type="date" {...register("endDate", { required: 'Fill the date.🥺' })} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
                       {errors.endDate && <span className='text-sm text-red-600 font-grot mt-1 ml-1'>{errors.endDate.message}</span>}
                     </div>
                   </div>
-                  <button className='px-4 py-1 bg-accent font-grot text-sm mt-4 font-bold flex items-center'><span className='mr-1'><BiFilterAlt/></span>Filter</button>
+                  <button className='px-4 py-1 bg-accent font-grot text-sm mt-4 font-bold flex items-center'><span className='mr-1'><BiFilterAlt /></span>Filter</button>
                 </form>
               </motion.div>
             </div>
             {isFiltering ? (
               <>
-                <div className='ml-4'><button className='flex items-center font-grot mt-2 text-sm font-bold py-1 pl-2 pr-4  bg-accent' onClick={() => {setIsFiltering(false); setShowFilter(false)}}><IoIosArrowBack />Back</button></div>
+                <div className='ml-4'><button className='flex items-center font-grot mt-2 text-sm font-bold py-1 pl-2 pr-4  bg-accent' onClick={() => { setIsFiltering(false); setShowFilter(false);setbuttonClicked(false) }}><IoIosArrowBack />Back</button></div>
                 {filterData.isPending && <Loading />}
                 <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
-                  {(filterData?.data?.length===0)?<div><p className='text-center mt-4 font-grot text-xl'>No data to show.🥺</p><p className='text-center mt-2 font-grot text-xl'> Please select another date.</p></div> : filterData?.data?.map((item: TBlogContent, i: number) => (<Link key={i} to={`/blog/${item.slug}`} ><Card showTransition={true} content={item} /></Link>))}
+                  {(filterData?.data?.length === 0) ? <div><p className='text-center mt-4 font-grot text-xl'>No data to show.🥺</p><p className='text-center mt-2 font-grot text-xl'> Please select another date.</p></div> : filterData?.data?.map((item: TBlogContent, i: number) => (<Link key={i} to={`/blog/${item.slug}`} ><Card showTransition={true} content={item} /></Link>))}
                 </div>
               </>) : (
               <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
