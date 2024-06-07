@@ -26,10 +26,10 @@ router.get("/filter", filterBlog);
 
 router.get("/search", searchByTitle);
 
-router.get("/:slug", getSingleBlog);
+router.post("/image", singleUpload, uploadImage);
 
 router.get("/getImage", getSingleImage);
 
-router.post("/image", singleUpload, uploadImage);
+router.get("/:slug", getSingleBlog);
 
 export default router;
