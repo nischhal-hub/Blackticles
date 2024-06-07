@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import BlogPost from "../models/blogPosts.js";
-import { singleUpload } from "../middlewares/multer.js";
 import slugify from "slugify";
 import BlogImage from "../models/blogImages.js";
+import { isValid, parseISO } from "date-fns";
+import { format } from "date-fns-tz";
 
 export const getAllBlogs = async (
   req: Request,
@@ -44,7 +45,7 @@ export const getSingleBlog = async (
     next(err);
   }
 };
-export const addBlogs = async (
+export const addBlog = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -83,7 +84,7 @@ export const addBlogs = async (
   }
 };
 
-export const editBlogs = async (
+export const editBlog = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -121,7 +122,7 @@ export const editBlogs = async (
   }
 };
 
-export const deleteBlogs = async (
+export const deleteBlog = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -139,20 +140,44 @@ export const deleteBlogs = async (
   }
 };
 
-// Route to search blogs by date range
-export const filterBlog = async (req: Request, res: Response) => {
+export const filterBlog = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { startDate, endDate } = req.query;
 
-  if (!startDate || !endDate) {
+  if (!startDate && !endDate) {
     return res
       .status(400)
       .json({ error: "Start date and end date are required" });
   }
 
   try {
-    // Convert string dates to Date objects
-    const start = new Date(startDate as string);
-    const end = new Date(endDate as string);
+    // Parse the dates from query parameters
+    const start = parseISO(startDate as string);
+    const end = parseISO(endDate as string);
+
+    console.log({ start, end });
+    // Validate the dates
+    if (!isValid(start) || !isValid(end)) {
+      return res.status(400).json({ error: "Invalid date format" });
+    }
+
+    // Check if endDate is after startDate
+    if (start > end) {
+      return res
+        .status(400)
+        .json({ error: "End date must be after start date" });
+    }
+
+    start.setHours(0);
+    start.setMinutes(0);
+    start.setSeconds(0);
+
+    end.setHours(23);
+    end.setMinutes(59);
+    end.setSeconds(59);
 
     const posts = await BlogPost.find({
       createdAt: {
@@ -164,13 +189,17 @@ export const filterBlog = async (req: Request, res: Response) => {
     // Format dates before sending the response
     const formattedPosts = posts.map((post) => ({
       ...post.toObject(),
-      createdAt: post.createdAt.toISOString(),
-      updatedAt: post.updatedAt.toISOString(),
+      createdAt: format(post.createdAt, "yyyy-MM-dd'T'HH:mm:ssXXX", {
+        timeZone: "UTC",
+      }),
+      updatedAt: format(post.updatedAt, "yyyy-MM-dd'T'HH:mm:ssXXX", {
+        timeZone: "UTC",
+      }),
     }));
 
     res.json(formattedPosts);
-    console.log(formattedPosts);
   } catch (err) {
+    console.error(err); // Log the error for debugging purposes
     res.status(500).json({ error: "Failed to fetch blogs" });
   }
 };
@@ -229,8 +258,7 @@ export const uploadImage = async (
     }
     const singleImage = await BlogImage.create({ image: image.path });
     res.status(201).json({
-      success: true,
-      message: "Single Image Added Successfully",
+      success: 1,
       singleImage,
     });
   } catch (err) {
