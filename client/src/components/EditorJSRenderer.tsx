@@ -176,15 +176,13 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
         console.log("i am running")
         if (containerRef.current) {
             const { scrollHeight, clientHeight } = containerRef.current;
-            console.log(scrollHeight)
-            console.log(clientHeight)
             if (scrollHeight > clientHeight) {
                 setShowReadMore(true);
             } else {
                 setShowReadMore(false);
             }
         }
-    }, [data])
+    }, [])
     return (
         <>
             <div ref={containerRef} className={cn(
