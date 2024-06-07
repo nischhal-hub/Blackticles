@@ -1,29 +1,35 @@
 import express, { Request, Response, Router } from "express";
 import {
-  addBlogs,
-  deleteBlogs,
-  editBlogs,
+  addBlog,
+  deleteBlog,
+  editBlog,
   getAllBlogs,
   filterBlog,
   getSingleBlog,
   searchByTitle,
+  uploadImage,
 } from "../controllers/blog.js";
 import { singleUpload } from "../middlewares/multer.js";
+import { getSingleImage } from "../controllers/singleBlogImage.js";
 
 const router = express.Router();
 
-router.get("/all", getAllBlogs);
+router.get("/", getAllBlogs);
 
-router.get("/single/:slug", getSingleBlog);
+router.post("/", singleUpload, addBlog);
 
-router.post("/new", singleUpload, addBlogs);
+router.put("/:id", singleUpload, editBlog);
 
-router.put("/edit/:id", singleUpload, editBlogs);
+router.delete("/:id", deleteBlog);
 
-router.delete("/delete/:id", deleteBlogs);
-
-router.post("/filter", filterBlog);
+router.get("/filter", filterBlog);
 
 router.get("/search", searchByTitle);
+
+router.get("/:slug", getSingleBlog);
+
+router.get("/getImage", getSingleImage);
+
+router.post("/image", singleUpload, uploadImage);
 
 export default router;
