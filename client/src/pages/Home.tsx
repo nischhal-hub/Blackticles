@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react'
-import Card from './Card'
+import Card from '../components/Card'
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { motion } from 'framer-motion'
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { fetchAll, filter } from '../api';
-import Loading from './Loading';
+import Loading from '../components/Loading';
 import { TBlogContent } from '../type';
 import { IoIosArrowBack } from 'react-icons/io';
 import { BiFilterAlt } from 'react-icons/bi';

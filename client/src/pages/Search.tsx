@@ -1,13 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
 import { Link, useParams } from 'react-router-dom'
-import Card from './Card'
-import Back from './Back'
+import Card from '../components/Card'
+import Back from '../components/Back'
 import { motion } from 'framer-motion'
 //import { useQuery } from '@tanstack/react-query'
 import { TBlogContent } from '../type';
-import { search } from '../api'
-import Loading from './Loading'
+import Loading from '../components/Loading'
 import axios from 'axios'
 
 const Search = () => {
