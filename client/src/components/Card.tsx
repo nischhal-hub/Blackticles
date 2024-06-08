@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { cn } from '../utils/cn';
 import { TBlogContent } from '../type';
+import { imageFetch } from '../utils/imageFetch';
 
 type TCardProp = {
     showTransition :boolean;
@@ -28,7 +29,7 @@ const Card = ({showTransition, content}: TCardProp) => {
                 !showTransition ? '' : 'hover:-translate-y-1 transition-transform'
             )}>
                 <div className='w-full h-52 overflow-hidden bg-slate-200'>
-                    <img src={`http://localhost:5003/${content?.image}`} alt="blog picutre" className='w-full h-full object-contain' />
+                    <img src={imageFetch(content?.image)} alt="blog picutre" className='w-full h-full object-contain' />
                 </div>
                 <div className='h-20 overflow-hidden mb-2 relative' ref={paraRef}>
                     {showEllipses && <p className='absolute -bottom-1 right-1 font text-2xl'>....</p>}

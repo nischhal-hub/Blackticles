@@ -14,6 +14,7 @@ import { editBlog, fetchSingle } from '../api'
 import { useParams } from 'react-router-dom'
 import Toaster from '../components/Toaster'
 import { TiTick } from 'react-icons/ti'
+import { imageFetch } from '../utils/imageFetch'
 
 
 type TFormFields = {
@@ -44,7 +45,7 @@ const Editblog = () => {
         if (data) {
             setValue("title", data?.blog?.title)
             setValue("image", data?.blog?.image)
-            setImage(`http://localhost:5003/${data?.blog?.image}`)
+            setImage(imageFetch(data?.blog?.image))
             setValue("overview", data?.blog?.overview)
             setEditId(data?.blog?._id)
         }
