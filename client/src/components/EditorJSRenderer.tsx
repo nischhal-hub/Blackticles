@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react'
 import {cn} from '../utils/cn'
 import { FaArrowDown } from "react-icons/fa6";
 import { FaArrowUp } from 'react-icons/fa';
+import { imageFetch } from '../utils/imageFetch';
 
 interface IRendererProp {
     data: string
@@ -148,7 +149,7 @@ export const EditorJSRenderer: FC<IRendererProp> = ({ data }) => {
                                     "rounded-md",
                                 )
                             }>
-                                <img src={`http://localhost:5003/${image_data.file.url}`} alt="image"
+                                <img src={imageFetch(image_data.file.url)} alt="image"
                                     className={cn(
                                         'w-[150%]',
                                         'm-auto',

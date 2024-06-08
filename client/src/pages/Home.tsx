@@ -2,12 +2,14 @@ import { useRef, useState } from 'react'
 import Card from '../components/Card'
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { motion } from 'framer-motion'
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { fetchAll, filter } from '../api';
 import Loading from '../components/Loading';
 import { TBlogContent } from '../type';
+import { imageFetch } from '../utils/imageFetch';
+
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { IoIosArrowBack } from 'react-icons/io';
 import { BiFilterAlt } from 'react-icons/bi';
 
@@ -69,7 +71,7 @@ const Home = () => {
           {/* Hero blog */}
           <div className=' border-b-2 border-solid border-slate-900 border-spacing-7 pb-8'>
             <div className='w-full aspect-video' >
-              <img src={`http://localhost:5003/${data?.blogs?.[0]?.image}`} alt="picture" className='w-full' />
+              <img src={imageFetch(data?.blogs?.[0]?.image)} alt="picture" className='w-full' />
             </div>
             <Link to={`/blog/${data?.blogs?.[0]?.slug}`}>
               <h1 className='font-playFair text-4xl font-bold text-center mx-4 mt-2'>{data?.blogs?.[0]?.title}</h1>
