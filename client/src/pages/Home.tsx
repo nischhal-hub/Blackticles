@@ -3,7 +3,7 @@ import Card from '../components/Card'
 import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { motion } from 'framer-motion'
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { fetchAll, filter } from '../api';
 import Loading from '../components/Loading';
 import { TBlogContent } from '../type';
@@ -12,6 +12,7 @@ import { imageFetch } from '../utils/imageFetch';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { IoIosArrowBack } from 'react-icons/io';
 import { BiFilterAlt } from 'react-icons/bi';
+import { TbRulerMeasure } from 'react-icons/tb';
 
 
 type TDates = {
@@ -26,8 +27,9 @@ const Home = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<TDates>()
   const [showFilter, setShowFilter] = useState(false)
   const [isFiltering, setIsFiltering] = useState(false)
-  const [buttonClicked, setbuttonClicked] = useState(false)
+  // const [buttonClicked, setbuttonClicked] = useState(false)
   const cardHolderRef = useRef<HTMLDivElement>(null)
+  const queryClient = useQueryClient()
   const variant = {
     open: {
       opacity: 1, height: 'auto', y: 0
@@ -43,14 +45,14 @@ const Home = () => {
   const filterData = useQuery({
     queryFn: () => filter(dates.startDate, dates.endDate),
     queryKey: ['filtered'],
-    enabled: buttonClicked
+    enabled: true
   }
   )
   const onSubmit: SubmitHandler<TDates> = ({ startDate, endDate }) => {
     console.log(startDate, endDate)
     setIsFiltering(true);
     setDates({ startDate: startDate, endDate: endDate })
-    setbuttonClicked(true)
+    // setbuttonClicked(true)
     filterData.refetch()
   }
   console.log(filterData.data)
@@ -95,12 +97,16 @@ const Home = () => {
                   <div className='w-full mt-2 sm:w-[30%] sm:flex sm:items-center sm:space-x-4'  >
                     <div className='flex flex-col '>
                       <p className='font-grot font-normal text-sm'>From</p>
-                      <input type="date" {...register("startDate", { required: 'Fill the date.🥺' })} aria-placeholder='DD/MM/YYYY' className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                      <input type="date" {...register("startDate", { required: 'Fill the date.🥺',
+                        onChange: () => (queryClient.invalidateQueries({ queryKey: ['filtered'] }))
+                       })} aria-placeholder='DD/MM/YYYY' className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
                       {errors.startDate && <span className='text-sm text-red-600 font-grot mt-1 ml-1'>{errors.startDate.message}</span>}
                     </div>
                     <div className='flex flex-col w-full mt-1 sm:mt-0'>
                       <p className='font-grot font-normal text-sm'>To</p>
-                      <input type="date" {...register("endDate", { required: 'Fill the date.🥺' })} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
+                      <input type="date" {...register("endDate", { required: 'Fill the date.🥺',
+                        onChange: () => (queryClient.invalidateQueries({ queryKey: ['filtered'] }))
+                       })} className='bg-slate-100 border-2 border-solid border-borderColor px-4 py-2 text-textSecondary-200 rounded-lg font-grot font-medium text-sm required:border-accent required:border-[1px]' placeholder='Eg. The rockerzz' />
                       {errors.endDate && <span className='text-sm text-red-600 font-grot mt-1 ml-1'>{errors.endDate.message}</span>}
                     </div>
                   </div>
