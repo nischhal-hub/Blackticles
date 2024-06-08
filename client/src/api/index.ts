@@ -1,8 +1,9 @@
 import axios from "axios";
 const url = "http://localhost:5003/api/blogs";
+import server from "../axios/index";
 export const fetchAll = async () => {
   try {
-    const resp = await axios(`${url}/`);
+    const resp = await server(`/`);
     return resp.data;
   } catch (error) {
     console.log(`Error Fetching Data: ${error}`);
@@ -12,7 +13,7 @@ export const fetchAll = async () => {
 
 export const fetchSingle = async (title: string | undefined) => {
   try {
-    const resp = await axios(`${url}/${title}`);
+    const resp = await server(`/${title}`);
     return resp.data;
   } catch (error) {
     console.log(`Error Fetching single blog data: ${error}`);
@@ -22,7 +23,7 @@ export const fetchSingle = async (title: string | undefined) => {
 
 export const postBlog = async (blogData: FormData) => {
   try {
-    const resp = await axios.post(`${url}/`, blogData, {
+    const resp = await server.post(`/`, blogData, {
       headers: {
         "Content-type": "multipart/form-data",
       },
@@ -37,7 +38,7 @@ export const postBlog = async (blogData: FormData) => {
 export const editBlog = async (formData: FormData, editId: string) => {
   console.log(formData);
   try {
-    const resp = await axios.put(`${url}/${editId}`, formData, {
+    const resp = await server.put(`/${editId}`, formData, {
       headers: {
         "Content-type": "multipart/form-data",
       },
@@ -51,7 +52,7 @@ export const editBlog = async (formData: FormData, editId: string) => {
 
 export const deleteBlog = async (id: string) => {
   try {
-    const resp = await axios.delete(`${url}/${id}`, {
+    const resp = await server.delete(`/${id}`, {
       headers: {
         "Content-type": "application/json",
       },
@@ -66,7 +67,7 @@ export const deleteBlog = async (id: string) => {
 export const search = async (title: string | undefined) => {
   console.log(title);
   try {
-    const resp = await axios(`${url}/search?title=${title}`);
+    const resp = await server(`/search?title=${title}`);
     console.log(resp.data);
     return resp.data;
   } catch (error) {
@@ -77,8 +78,8 @@ export const search = async (title: string | undefined) => {
 
 export const filter = async (startDate: string, endDate: string) => {
   try {
-    const resp = await axios(
-      `${url}/filter?startDate=${startDate}&endDate=${endDate}`
+    const resp = await server(
+      `/filter?startDate=${startDate}&endDate=${endDate}`
     );
     console.log(resp);
     return resp.data;
