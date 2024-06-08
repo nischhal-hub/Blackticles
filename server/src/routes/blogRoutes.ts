@@ -18,10 +18,6 @@ router.get("/", getAllBlogs);
 
 router.post("/", singleUpload, addBlog);
 
-router.put("/:id", singleUpload, editBlog);
-
-router.delete("/:id", deleteBlog);
-
 router.get("/filter", filterBlog);
 
 router.get("/search", searchByTitle);
@@ -31,5 +27,9 @@ router.get("/getImage", getSingleImage);
 router.post("/image", singleUpload, uploadImage);
 
 router.get("/:slug", getSingleBlog);
+
+router.put("/:id", singleUpload, editBlog);
+
+router.delete("/:id", deleteBlog);
 
 export default router;
