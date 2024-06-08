@@ -116,7 +116,7 @@ const Home = () => {
             </div>
             {isFiltering ? (
               <>
-                <div className='ml-4'><button className='flex items-center font-grot mt-2 text-sm font-bold py-1 pl-2 pr-4  bg-accent' onClick={() => { setIsFiltering(false); setShowFilter(false);setbuttonClicked(false) }}><IoIosArrowBack />Back</button></div>
+                <div className='ml-4'><button className='flex items-center font-grot mt-2 text-sm font-bold py-1 pl-2 pr-4  bg-accent' onClick={() => { setIsFiltering(false); setShowFilter(false);}}><IoIosArrowBack />Back</button></div>
                 {filterData.isPending && <Loading />}
                 <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 overflow-hidden max-h-auto`} ref={cardHolderRef}>
                   {(filterData?.data?.length === 0) ? <div><p className='text-center mt-4 font-grot text-xl'>No data to show.🥺</p><p className='text-center mt-2 font-grot text-xl'> Please select another date.</p></div> : filterData?.data?.map((item: TBlogContent, i: number) => (<Link key={i} to={`/blog/${item.slug}`} ><Card showTransition={true} content={item} /></Link>))}
