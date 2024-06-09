@@ -34,7 +34,7 @@ const BlogPostSchema: Schema<IBlogPost> = new Schema(
       type: String,
       required: true,
     },
-    slug: { type: String, unique: true, required: true },
+    slug: { type: String, required: true },
   },
   {
     timestamps: true,
