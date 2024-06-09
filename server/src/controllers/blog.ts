@@ -4,6 +4,7 @@ import slugify from "slugify";
 import BlogImage from "../models/blogImages.js";
 import { isValid, parseISO } from "date-fns";
 import { format } from "date-fns-tz";
+import ErrorHandler from "../utils/utility-class.js";
 
 export const getAllBlogs = async (
   req: Request,
@@ -12,6 +13,9 @@ export const getAllBlogs = async (
 ) => {
   try {
     const blogs = await BlogPost.find({});
+    if (blogs.length == 0) {
+      return next(new ErrorHandler("No Blogs Found", 404));
+    }
     res.status(200).json({
       success: true,
       blogs,
@@ -30,10 +34,7 @@ export const getSingleBlog = async (
     const { slug } = req.params;
     const blog = await BlogPost.findOne({ slug });
     if (!blog) {
-      return res.status(404).json({
-        success: false,
-        message: "Blog not Found",
-      });
+      return next(new ErrorHandler("No blog Present", 404));
     }
 
     res.json({
@@ -55,10 +56,7 @@ export const addBlog = async (
     const image = req.file;
 
     if (!image) {
-      return res.status(400).json({
-        success: false,
-        message: "Image is required",
-      });
+      return next(new ErrorHandler("No Image Added", 404));
     }
     const slug = slugify(title, { lower: true, strict: true });
 
@@ -68,8 +66,6 @@ export const addBlog = async (
       description,
       slug,
       image: image.path,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     });
 
     const savedBlogPost = await newBlogPost.save();
@@ -80,7 +76,7 @@ export const addBlog = async (
       blog: savedBlogPost,
     });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
@@ -91,7 +87,7 @@ export const editBlog = async (
 ) => {
   try {
     const { id } = req.params;
-    const { title, overview, description, createdAt, updatedAt } = req.body;
+    const { title, overview, description } = req.body;
     const image = req.file;
     const blog = await BlogPost.findByIdAndUpdate(
       id,
@@ -99,18 +95,12 @@ export const editBlog = async (
         title,
         overview,
         description,
-        createdAt,
-        updatedAt,
         image: image?.path,
       },
       { new: true }
     );
-
     if (!blog) {
-      return res.status(404).json({
-        success: false,
-        message: "Blog not found",
-      });
+      return next(new ErrorHandler("No blog Found", 404));
     }
     res.status(200).json({
       success: true,
@@ -133,7 +123,7 @@ export const deleteBlog = async (
     if (deletedBlog) {
       res.json({ success: true, message: "Blog deleted Successfully" });
     } else {
-      res.status(404).json({ success: false, message: "Blog not found" });
+      return next(new ErrorHandler("Blog not Found", 404));
     }
   } catch (err) {
     next(err);
@@ -145,30 +135,20 @@ export const filterBlog = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { startDate, endDate } = req.query;
-
-  if (!startDate && !endDate) {
-    return res
-      .status(400)
-      .json({ error: "Start date and end date are required" });
-  }
-
   try {
-    // Parse the dates from query parameters
+    const { startDate, endDate } = req.query;
+    if (!startDate && !endDate) {
+      return next(new ErrorHandler("start and end date is needed", 404));
+    }
     const start = parseISO(startDate as string);
     const end = parseISO(endDate as string);
 
-    console.log({ start, end });
-    // Validate the dates
     if (!isValid(start) || !isValid(end)) {
-      return res.status(400).json({ error: "Invalid date format" });
+      return next(new ErrorHandler("Invalid Date Format", 400));
     }
 
-    // Check if endDate is after startDate
     if (start > end) {
-      return res
-        .status(400)
-        .json({ error: "End date must be after start date" });
+      return next(new ErrorHandler("End date must be after start date", 400));
     }
 
     start.setHours(0);
@@ -186,7 +166,6 @@ export const filterBlog = async (
       },
     }).sort({ createdAt: 1 });
 
-    // Format dates before sending the response
     const formattedPosts = posts.map((post) => ({
       ...post.toObject(),
       createdAt: format(post.createdAt, "yyyy-MM-dd'T'HH:mm:ssXXX", {
@@ -196,19 +175,20 @@ export const filterBlog = async (
         timeZone: "UTC",
       }),
     }));
-
     res.json(formattedPosts);
   } catch (err) {
-    console.error(err); // Log the error for debugging purposes
-    res.status(500).json({ error: "Failed to fetch blogs" });
+    next(err);
   }
 };
 
-// Route to search blogs by title
-export const searchByTitle = async (req: Request, res: Response) => {
+export const searchByTitle = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { title } = req.query;
   if (!title) {
-    return res.status(400).json({ error: "Title query parameter is required" });
+    return next(new ErrorHandler("Title should be given", 404));
   }
   try {
     const blogs = await BlogPost.find({
@@ -216,18 +196,19 @@ export const searchByTitle = async (req: Request, res: Response) => {
     });
     res.json(blogs);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch blogs" });
+    next(err);
   }
 };
 
-export const addSingleImage = async (req: Request, res: Response) => {
+export const addSingleImage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const image = req.file;
     if (!image) {
-      return res.status(404).json({
-        success: false,
-        message: "No Image found",
-      });
+      return next(new ErrorHandler("No image inserted", 404));
     }
     const singleImage = await BlogPost.create({ image: image.path });
     res.status(201).json({
@@ -236,10 +217,7 @@ export const addSingleImage = async (req: Request, res: Response) => {
       singleImage,
     });
   } catch (err) {
-    res.status(500).json({
-      error: "failed to create Image",
-      message: `The error is:${err}`,
-    });
+    next(err);
   }
 };
 
@@ -251,10 +229,7 @@ export const uploadImage = async (
   try {
     const image = req.file;
     if (!image) {
-      return res.status(404).json({
-        success: false,
-        message: "Image not Found",
-      });
+      return next(new ErrorHandler("No image inserted", 404));
     }
     const singleImage = await BlogImage.create({ image: image.path });
     res.status(201).json({

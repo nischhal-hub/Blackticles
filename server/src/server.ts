@@ -12,24 +12,23 @@ config({
 });
 
 const app = express();
+await connectDB();
 
-//using middlewares
-app.use("/uploads", express.static("uploads"));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// using Routes
+app.use("/api/blogs", blogRoutes);
 
 const corsOptions = {
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 };
+
+//using middlewares
 app.use(cors(corsOptions));
-
-// using Routes
-app.use("/api/blogs", blogRoutes);
-
-await connectDB();
+app.use("/uploads", express.static("uploads"));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const Port = process.env.PORT || 5000;
 
