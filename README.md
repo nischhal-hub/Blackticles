@@ -57,16 +57,27 @@ Welcome to **Blackticles**! Your go-to platform for creating, editing, and delet
 ### 📸 Screenshots
 
 - **Home Page**
-  ![Home Page](path/to/homepage-screenshot.png)
+  ![image](https://github.com/user-attachments/assets/8ce6fa96-2270-4cf8-97da-12826b14ac3b)
+
+- **Blog**
+  ![image](https://github.com/user-attachments/assets/0c00bc29-3455-4c48-9fd7-45122c3742d1)
 
 - **Create Blog**
-  ![Create Blog](path/to/create-blog-screenshot.png)
+  ![image](https://github.com/user-attachments/assets/5c495f4d-0140-430b-8402-24730398ece2)
+
 
 - **Edit Blog**
-  ![Edit Blog](path/to/edit-blog-screenshot.png)
+  ![image](https://github.com/user-attachments/assets/2b1bc950-f3c4-4226-8a95-e61d70ef45ee)
+
 
 - **Delete Blog**
-  ![Delete Blog](path/to/delete-blog-screenshot.png)
+  ![image](https://github.com/user-attachments/assets/3ad0ba8c-18ca-4e26-a13f-e75926d18140)
+
+
+- **Search Blog**
+  ![image](https://github.com/user-attachments/assets/dce27583-8bb9-4329-b0f7-9dd11e5643c9)
+
+
 
 ---
 
@@ -77,7 +88,7 @@ Welcome to **Blackticles**! Your go-to platform for creating, editing, and delet
 - 💅 **Tailwind CSS** (or your choice of styling framework)
 - 🔄 **React Router** (for navigation)
 - 🔥 **Express/Node** (for backend, authentication, and database) 
-- Backend made by Our beloved [BIPIN dai](https://github.com/Bipin-3421) 🖤
+- Backend made by Our beloved [BIPIN aka LEE dai](https://github.com/Bipin-3421) 🖤
 ---
 
 ## 🤝 Contributing
@@ -106,10 +117,10 @@ We love contributions! Feel free to fork this project, make your changes, and su
 
 ## 📬 Contact
 
-Have any questions? Feel free to reach out!
+Have any questions or want to collaborate? Feel free to reach out!
 
 - **Email**: nischalbh51@gmail.com
-- **LinkedIn**: [@Nischhal Bohara]([https://www.linkedin.com/in/nischhal-bohara/])
+- **LinkedIn**: [@nischhal-bohara](https://www.linkedin.com/in/nischhal-bohara/)
 
 ---
 
